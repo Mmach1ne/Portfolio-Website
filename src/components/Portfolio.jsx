@@ -8,21 +8,26 @@ import ForestSVG from './ForestSVG';
 const Portfolio = () => {
   const cursorReference = useRef(null);
   const { scrollY } = useScroll();
-  const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
 
-  useEffect(() => {
-    const updateCursorPosition = (event) => {
-      requestAnimationFrame(() => {
-        if (cursorReference.current) {
-          cursorReference.current.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
-        }
-      });
-    };
-    window.addEventListener('mousemove', updateCursorPosition);
-    return () => {
-      window.removeEventListener('mousemove', updateCursorPosition);
-    };
-  }, []);
+  // Grass transform: starts at 0 (bottom) and moves up slightly with scroll
+  const grassY = useTransform(scrollY, [0, 500], [-300, -800]); // Starts higher and moves faster
+  const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
+  const forestLeftY = useTransform(scrollY, [0, 1000], [0, -150]);
+  const forestRightY = useTransform(scrollY, [0, 1000], [0, -150]);
+
+  
+  const cursorY = useTransform(scrollY, [0, 1000], [0, 500]);
+
+useEffect(() => {
+  const updateCursorPosition = (e) => {
+    if (cursorReference.current) {
+      cursorReference.current.style.left = `${e.clientX}px`;
+      cursorReference.current.style.top = `${e.clientY}px`;
+    }
+  };
+  window.addEventListener('mousemove', updateCursorPosition);
+  return () => window.removeEventListener('mousemove', updateCursorPosition);
+}, []);
 
   const projectPlaceholders = [
     { id: 1, title: 'Project 1', image: 'https://placehold.co/400x300' },
@@ -35,11 +40,21 @@ const Portfolio = () => {
     <div className="portfolio-container">
       <CanvasBackground />
       <StarsSVG />
+      <motion.div style={{ y: forestLeftY }}>
+        <ForestSVG side="left" />
+      </motion.div>
+      <motion.div style={{ y: forestRightY }}>
+        <ForestSVG side="right" />
+      </motion.div>
+      <motion.div style={{ y: grassY, position: 'fixed', top: '60%', width: '100%', zIndex: 10 }}>
+        <GrassSVG />
+      </motion.div>
       <motion.div className="fog-layer" style={{ opacity: fogOpacity }} />
-      <GrassSVG />
-      <ForestSVG side="left" />
-      <ForestSVG side="right" />
-      <div className="custom-cursor" ref={cursorReference} />
+      <div
+        className="custom-cursor"
+        ref={cursorReference}
+        style={{ y: cursorY }} here for scroll-based movement
+      />
       <div className="title-section">
         <h1 className="title">Ray's Portfolio</h1>
         <p className="subtitle">Scroll down to see more</p>
