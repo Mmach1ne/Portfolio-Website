@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* Replace with Intro Rust Line if available */
+  overflow-x: hidden;
+  cursor: none; /* Hide default cursor */
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
