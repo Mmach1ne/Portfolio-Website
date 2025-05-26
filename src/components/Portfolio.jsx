@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import CanvasBackground from './CanvasBackground';
-import GrassSVG from './GrassSVG';
 import StarsSVG from './StarsSVG';
 import ForestSVG from './ForestSVG';
 
@@ -9,8 +8,6 @@ const Portfolio = () => {
   const cursorReference = useRef(null);
   const { scrollY } = useScroll();
 
-  // Grass transform: starts at 0 (bottom) and moves up slightly with scroll
-  const grassY = useTransform(scrollY, [0, 500], [-300, -800]); // Starts higher and moves faster
   const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
   const forestLeftY = useTransform(scrollY, [0, 1000], [0, -150]);
   const forestRightY = useTransform(scrollY, [0, 1000], [0, -150]);
@@ -20,9 +17,10 @@ const Portfolio = () => {
 
 useEffect(() => {
   const updateCursorPosition = (e) => {
-    if (cursorReference.current) {
-      cursorReference.current.style.left = `${e.clientX}px`;
-      cursorReference.current.style.top = `${e.clientY}px`;
+    const cursor = cursorReference.current;
+    if (cursor) {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
     }
   };
   window.addEventListener('mousemove', updateCursorPosition);
@@ -45,9 +43,6 @@ useEffect(() => {
       </motion.div>
       <motion.div style={{ y: forestRightY }}>
         <ForestSVG side="right" />
-      </motion.div>
-      <motion.div style={{ y: grassY, position: 'fixed', top: '60%', width: '100%', zIndex: 10 }}>
-        <GrassSVG />
       </motion.div>
       <motion.div className="fog-layer" style={{ opacity: fogOpacity }} />
       <div
