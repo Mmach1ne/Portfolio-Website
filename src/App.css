@@ -4,17 +4,17 @@
        url('../public/fonts/IntroRust-Line.otf') format('woff');
 }
 
-/* ─── GLOBAL LAYOUT ───────────────────────────────────────────────────────── */
+/* ─── GLOBAL ───────────────────────────────────────────────────────────── */
 .portfolio-container {
   position: relative;
   min-height: 100vh;
-  background: #0a0a0a; /* Almost black */
+  background: #0a0a0a;
   color: #fff;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* ─── TITLE SECTION ────────────────────────────────────────────────────────── */
+/* ─── TITLE SECTION ─────────────────────────────────────────────────────── */
 .title-section {
   height: 100vh;
   display: flex;
@@ -27,18 +27,15 @@
   position: relative;
   z-index: 10;
 }
-
 .title-section .title {
   font-size: 4rem;
 }
-
 .subtitle {
   font-size: 1.5rem;
   margin-top: 1rem;
   opacity: 0.7;
   font-family: 'Intro Rust Line', sans-serif;
 }
-
 .view-more-btn {
   margin-top: 1.5rem;
   padding: 0.75rem 2rem;
@@ -62,7 +59,7 @@
   100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
 }
 
-/* ─── ABOUT / PROJECTS WRAPPER ────────────────────────────────────────────── */
+/* ─── CONTENT / ABOUT SECTION ──────────────────────────────────────────── */
 .content-section {
   position: relative;
   z-index: 2;
@@ -72,93 +69,56 @@
   gap: 20px;
 }
 
-/* ─── ABOUT TITLE ──────────────────────────────────────────────────────────── */
+/* Hide until scrolled into view */
 .about-section-title {
-  position: fixed;
-  top: 20vh;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 3.5rem;
-  margin: 0;
-  z-index: 20;
+  position: relative;
+  margin: 0 0 1rem;
+  font-size: 3rem;
+  opacity: 0;
 }
 
-/* ─── ABOUT CONTENT GRID ─────────────────────────────────────────────────── */
+/* SCALE & POSITION ALL ABOUT CONTENT */
 .about-content-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  padding-top: 20vh;
-  align-items: start;   /* ← both columns start at the top */
+  gap: 2rem;
+  padding-top: 8vh;
+  align-items: start;
+  transform: scale(0.85);
+  transform-origin: top left;
 }
 
-/* — Left Column: icon + text — */
+/* Left column: icon + text */
 .about-left {
-  margin-top: 0;        /* remove old top/translate hacks */
+  /* no manual position hack */
 }
-
 .about-left .about-icon img {
-  width: 250px;
-  height: 250px;
-  margin-left: 20%;
+  width: 150px;
+  height: 150px;
+  margin: 0;
 }
-
 .about-left .about-text-box {
   font-size: 1.4rem;
   line-height: 1.8;
   max-width: 400px;
-  margin-left: 20%;
-  margin-top: 2rem;
-  
+  margin: 2rem 0 0;
 }
 
-.about-left .about-icon,
-.about-left .about-text-box {
-  margin-top: 2rem;     /* ← tweak this value until it matches your design */
-}
-
-
+/* Right column: logos */
 .about-right .logo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  position: relative;
-  top: 30vh;
+  position: static;
+  margin: 0;
 }
 .logo-grid .logo-item:nth-child(3n+2) {
-  transform: translateY(40%);
+  transform: none;
 }
-.logo-item {
-  position: relative;
-  transition: transform 0.3s ease;
-}
-.logo-item img {
-  width: 100px;
-  height: 100px;
-  border-radius: 12px;
-}
-
-/* 1) Make both columns start at the very top */
-.about-content-section {
-  align-items: start;  /* (you already have display: grid; …) */
-}
-
-/* 2) Remove the downward-offset on your logo grid */
-.about-right .logo-grid {
-  position: static;    /* instead of relative */
-  margin-top: 0;       /* instead of top: 30vh */
-  top: auto;
-}
-
-/* 3) Nix that old “middle-column” translate hack */
-.logo-grid .logo-item:nth-child(3n+2) {
-  transform: none !important;
-}
-
+/* extra (10th) logo moves into col 2 */
 .logo-item:nth-child(10) {
-  grid-column: 2;    /* place it in the 2nd column */
+  grid-column: 2;
 }
-/* 4) White-outline boxes for each logo */
 .logo-item {
   width: 100px;
   height: 100px;
@@ -170,18 +130,20 @@
   justify-content: center;
   transition: transform 0.3s ease;
 }
-
 .logo-item img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 0;    /* let the container handle the rounding */
+  border-radius: 0;
 }
 
-/* ─── BACKGROUND LAYERS ───────────────────────────────────────────────────── */
+/* ─── BACKGROUND & DECOR ───────────────────────────────────────────────── */
 .fog-layer {
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(
     to bottom,
     rgba(10,10,10,0.8),
@@ -191,21 +153,23 @@
   z-index: 1;
   transition: opacity 1s ease;
 }
-
 .forest-left, .forest-right {
   position: fixed;
   bottom: 0;
-  width: 200px; height: 100vh;
+  width: 200px;
+  height: 100vh;
   will-change: transform;
   pointer-events: none;
   z-index: 1;
 }
 .forest-left { left: 0; }
 .forest-right { right: 0; }
-
 .stars {
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
 }
 .stars path[stroke="url(#cometGradient)"] {
@@ -223,10 +187,11 @@
   stdDeviation: 2.5;
 }
 
-/* ─── CUSTOM CURSOR ───────────────────────────────────────────────────────── */
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────────────────── */
 .custom-cursor {
   position: fixed;
-  width: 20px; height: 20px;
+  width: 20px;
+  height: 20px;
   background: radial-gradient(circle,
     rgba(255,255,255,0.3) 0%,
     rgba(255,255,255,0) 70%
@@ -246,13 +211,14 @@
   z-index: 10000;
 }
 @keyframes cursorPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.95); }
+  0%,100% { transform: translate(-50%, -50%) scale(0.95); }
   50%      { transform: translate(-50%, -50%) scale(1.2); }
 }
 .custom-cursor::before {
   content: '';
   position: absolute;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: rgba(255,255,255,0.1);
   animation: ripple 2s infinite;
@@ -261,6 +227,7 @@
   0%   { transform: scale(1); opacity: 0.4; }
   100% { transform: scale(1.5); opacity: 0; }
 }
+
 
 
 .forest-left, .forest-right {

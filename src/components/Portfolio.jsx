@@ -1,4 +1,3 @@
-// src/components/Portfolio.jsx
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import CanvasBackground from './CanvasBackground';
@@ -23,7 +22,7 @@ const Portfolio = () => {
         cursor.style.left = `${e.clientX}px`;
         cursor.style.top = `${e.clientY}px`;
       }
-    };
+    };  
     window.addEventListener('mousemove', updateCursorPosition);
     return () => window.removeEventListener('mousemove', updateCursorPosition);
   }, []);
@@ -46,8 +45,8 @@ const Portfolio = () => {
 
       {/* Title Section */}
       <div className="title-section">
-        <h1 className="title">Hello. I'm Ray.</h1>
-        <p className="subtitle">I'm a full stack developer.</p>
+        <h1 className="title">Ray's Portfolio</h1>
+        <p className="subtitle">Scroll down to see more</p>
         <button className="view-more-btn" onClick={scrollToProjects}>View More</button>
       </div>
 
@@ -60,30 +59,46 @@ const Portfolio = () => {
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1 }}
       >
-        <h2 className="about-section-title">About Me</h2>
+        {/* Hide/show "About Me" until scrolled or view-more clicked */}
+        <motion.h2
+          className="about-section-title"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.3 }}
+        >
+          About Me
+        </motion.h2>
+
         <div className="about-content-section">
           <div className="about-left">
             <div className="about-icon">
               <img src="https://placehold.co/150x150" alt="Icon Placeholder" />
             </div>
             <div className="about-text-box">
-              <p>Curiosity killed the cat. But as an aspiring engineer and current student at the University of Waterloo, it is the trait I value most. To me, being an engineer means having the drive to seek and solve problems in the professional field or everyday life. This passion to create has inspired me to start new projects and consistently improve my skills, striving to contribute to the field of technology.</p>
+              <p>
+                Curiosity killed the cat. But as an aspiring engineer and current
+                student at the University of Waterloo, it is the trait I
+                value most. To me, being an engineer means having the drive to seek
+                and solve real-world problems—and I’m just getting started.
+              </p>
             </div>
           </div>
+
           <div className="about-right">
             <div className="logo-grid">
-              {/* Column 1 */}
+              {/* Column 1 (3 logos) */}
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
 
-              {/* Column 2 (Middle column with 4 items) */}
+              {/* Column 2 (4 logos) */}
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
+              <div className="logo-item" style={{ gridColumn: 2 }}><img src="https://placehold.co/100x100" alt="Logo" /></div>
 
-              {/* Column 3 */}
+              {/* Column 3 (3 logos) */}
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
