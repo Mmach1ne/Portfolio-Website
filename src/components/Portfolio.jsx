@@ -11,26 +11,26 @@ const Portfolio = () => {
   const { scrollY } = useScroll();
   const projectsRef = useRef(null);
 
+  // parallax effects
   const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
   const forestLeftY = useTransform(scrollY, [0, 1000], [0, -150]);
   const forestRightY = useTransform(scrollY, [0, 1000], [0, -150]);
 
+  // custom cursor tracking
   useEffect(() => {
     const updateCursorPosition = (e) => {
-      const cursor = cursorReference.current;
-      if (cursor) {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
+      if (cursorReference.current) {
+        cursorReference.current.style.left = `${e.clientX}px`;
+        cursorReference.current.style.top = `${e.clientY}px`;
       }
-    };  
+    };
     window.addEventListener('mousemove', updateCursorPosition);
     return () => window.removeEventListener('mousemove', updateCursorPosition);
   }, []);
 
+  // smooth scroll to about section
   const scrollToProjects = () => {
-    if (projectsRef.current) {
-      projectsRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (projectsRef.current) projectsRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -50,7 +50,7 @@ const Portfolio = () => {
         <button className="view-more-btn" onClick={scrollToProjects}>View More</button>
       </div>
 
-      {/* About Section (replaces projects) */}
+      {/* About Section */}
       <motion.div
         className="content-section"
         ref={projectsRef}
@@ -59,18 +59,17 @@ const Portfolio = () => {
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1 }}
       >
-        {/* Hide/show "About Me" until scrolled or view-more clicked */}
-        <motion.h2
-          className="about-section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.3 }}
-        >
-          About Me
-        </motion.h2>
-
         <div className="about-content-section">
+          <motion.h2
+            className="about-section-title"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.3 }}
+          >
+            About Me
+          </motion.h2>
+
           <div className="about-left">
             <div className="about-icon">
               <img src="https://placehold.co/150x150" alt="Icon Placeholder" />
@@ -78,30 +77,30 @@ const Portfolio = () => {
             <div className="about-text-box">
               <p>
                 Curiosity killed the cat. But as an aspiring engineer and current
-                student at the University of Waterloo, it is the trait I
-                value most. To me, being an engineer means having the drive to seek
-                and solve real-world problems—and I’m just getting started.
+                student at the University of Waterloo, it is the trait I value most.
+                To me, being an engineer means having the drive to seek and solve
+                real-world problems—and I’m just getting started.
               </p>
             </div>
           </div>
 
           <div className="about-right">
             <div className="logo-grid">
-              {/* Column 1 (3 logos) */}
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
 
-              {/* Column 2 (4 logos) */}
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item" style={{ gridColumn: 2 }}><img src="https://placehold.co/100x100" alt="Logo" /></div>
 
-              {/* Column 3 (3 logos) */}
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
               <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
+
+              <div className="logo-item" style={{ gridColumn: 2 }}>
+                <img src="https://placehold.co/100x100" alt="Logo" />
+              </div>
             </div>
           </div>
         </div>
