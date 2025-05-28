@@ -7,6 +7,7 @@ import ShootingStarsSVG from './ShootingStarsSVG';
 import ForestSVG from './ForestSVG';
 import PlanetSVG from './PlanetSVG';
 import PlanetWithRing from './Ring';
+import ProjectSection from './ProjectSection';
 
 const Portfolio = () => {
   const cursorReference = useRef(null);
@@ -139,6 +140,7 @@ const Portfolio = () => {
           </div>
         </div>
       </motion.div>
+      <ProjectSection/>
     </div>
   );
 };

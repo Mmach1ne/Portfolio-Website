@@ -81,7 +81,7 @@
   padding-top: 8vh;
   transform: scale(0.8);
   transform-origin: center;
-  margin-left: 10%;
+  margin-left: 12%;
   font-family: 'Intro Rust Line', sans-serif;
 }
 .about-section-title {
@@ -89,7 +89,7 @@
   font-size: 4rem;
   grid-area: title;
   justify-self: center;
-  margin-right: 10%;
+  margin-right: 5%;
   font-family: 'Intro Rust Line', sans-serif;
 }
 
@@ -148,6 +148,9 @@
   text-transform: uppercase;
   color: #fff;
 }
+
+/* ─── Portfolio ───────────────────────────────────────────────── */
+
 
 /* ─── BACKGROUND & DECOR ───────────────────────────────────────────────── */
 .fog-layer {
