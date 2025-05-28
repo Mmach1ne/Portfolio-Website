@@ -13,6 +13,14 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+.project-section-title {
+  margin: 0 0 6rem;
+  font-size: 4rem;
+  grid-area: title;
+  justify-self: center;
+  font-family: 'Intro Rust Line', sans-serif;
+}
+
 .project-container {
   display: flex;
   max-width: 1400px;
@@ -217,7 +225,7 @@
 }
 
 /* Code Preview Section */
-.code-preview {
+.Pcode-preview {
   background: #1f2937;
   border-radius: 15px;
   flex: 1;
@@ -226,7 +234,7 @@
   overflow: hidden;
 }
 
-.code-header {
+.Pcode-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -235,27 +243,27 @@
   border-bottom: 1px solid #4b5563;
 }
 
-.code-header span {
+.Pcode-header span {
   color: #d1d5db;
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   font-weight: 600;
 }
 
-.code-status {
+.Pcode-status {
   width: 8px;
   height: 8px;
   background: #10b981;
   border-radius: 50%;
 }
 
-.code-content {
+.Pcode-content {
   padding: 1rem;
   overflow-y: auto;
   flex: 1;
 }
 
-.code-line {
+.Pcode-line {
   display: flex;
   margin-bottom: 0.25rem;
   font-family: 'Courier New', monospace;
@@ -270,7 +278,7 @@
   user-select: none;
 }
 
-.code-text {
+.Pcode-text {
   color: #d1d5db;
 }
 
@@ -386,15 +394,15 @@
     padding: 1rem;
   }
   
-  .code-preview {
+  .Pcode-preview {
     min-height: 150px;
   }
   
-  .code-content {
+  .Pcode-content {
     padding: 0.5rem;
   }
   
-  .code-line {
+  .Pcode-line {
     font-size: 0.7rem;
   }
   
