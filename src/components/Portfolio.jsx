@@ -10,6 +10,8 @@ import PlanetWithRing from './Ring';
 import ProjectSection from './ProjectSection';
 import ProjectSection2 from './ProjectSection2';
 import ProjectSection3 from './ProjectSection3';
+import ProjectSection4 from './ProjectSection4';
+import ContactSection from './ContactSection';
 
 const Portfolio = () => {
   const cursorReference = useRef(null);
@@ -145,6 +147,8 @@ const Portfolio = () => {
       <ProjectSection/>
       <ProjectSection2/>
       <ProjectSection3/>
+      <ProjectSection4/>
+      <ContactSection/>
     </div>
   );
 };

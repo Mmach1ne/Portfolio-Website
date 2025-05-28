@@ -1,0 +1,242 @@
+@font-face {
+  font-family: 'Intro Rust Line';
+  src: url('../../public/fonts/IntroRust-Line.otf') format('woff2'),
+       url('../../public/fonts/IntroRust-Line.otf') format('woff');
+}
+
+.contact-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+  padding: 4rem 2rem;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+}
+
+.contact-container {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-title {
+  font-size: 5rem;
+  font-weight: 800;
+  margin: 0 0 2rem 0;
+  font-family: 'Intro Rust Line', sans-serif;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.contact-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: -20px;
+  width: 80px;
+  height: 4px;
+  background: #64ffda;
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #9ca3af;
+  margin: 0 0 3rem 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #6b7280;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #64ffda;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.submit-button {
+  padding: 1rem 3rem;
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Intro Rust Line', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  align-self: center;
+  min-width: 200px;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.submit-button:hover {
+  color: #64ffda;
+  border-color: #64ffda;
+}
+
+.contact-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 6rem;
+}
+
+.scroll-top {
+  width: 50px;
+  height: 50px;
+  background: #64ffda;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0a0a;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  background: #4fffda;
+}
+
+.social-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  text-decoration: none;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.social-link:hover {
+  color: #64ffda;
+  border-color: #64ffda;
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: #6b7280;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 3.5rem;
+  }
+  
+  .contact-title::after {
+    width: 60px;
+    right: -10px;
+  }
+  
+  .contact-description {
+    font-size: 1rem;
+  }
+  
+  .form-input,
+  .form-textarea {
+    padding: 0.875rem 1.25rem;
+  }
+  
+  .submit-button {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .contact-footer {
+    margin-top: 4rem;
+  }
+  
+  .social-links {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 2rem 1rem;
+  }
+  
+  .contact-title {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
+  
+  .contact-title::after {
+    width: 40px;
+    height: 3px;
+    bottom: -5px;
+  }
+  
+  .contact-form {
+    gap: 1rem;
+  }
+  
+  .submit-button {
+    padding: 0.875rem 2rem;
+    font-size: 0.9rem;
+  }
+}

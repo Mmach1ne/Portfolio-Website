@@ -329,7 +329,6 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.2s;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -422,5 +421,6 @@
   .btn-primary,
   .btn-secondary {
     width: 200px;
+    cursor: none;
   }
 }
