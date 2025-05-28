@@ -82,6 +82,7 @@
   transform: scale(0.8);
   transform-origin: center;
   margin-left: 10%;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 .about-section-title {
   margin: 0 0 6rem;
