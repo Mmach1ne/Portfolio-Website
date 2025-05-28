@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Intro Rust Line';
+  src: url('../../public/fonts/IntroRust-Line.otf') format('woff2'),
+       url('../../public/fonts/IntroRust-Line.otf') format('woff');
+}
+
 .project-section {
   min-height: 100vh;
   display: flex;
@@ -283,6 +289,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 
 .project-subtitle {
@@ -290,6 +297,7 @@
   font-weight: 600;
   margin: 0 0 2rem 0;
   color: #e5e7eb;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 
 .project-description {
@@ -297,11 +305,13 @@
   line-height: 1.6;
   margin: 0 0 2.5rem 0;
   color: #d1d5db;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 
 .project-buttons {
   display: flex;
   gap: 1rem;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 
 .btn-primary,

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/ProjectSection.css';
+import {motion} from 'framer-motion'
 
 const ProjectSection = () => {
   return (
@@ -49,19 +50,19 @@ const ProjectSection = () => {
                 
                 {/* Sensor Data */}
                 <div className="sensor-section">
-                  <h4>Sensor Readings</h4>
+                  <h4>Communications</h4>
                   <div className="sensor-data">
                     <div className="sensor-item">
-                      <span className="sensor-label">Temperature</span>
-                      <span className="sensor-value">24.5°C</span>
+                      <span className="sensor-label">SLAVE</span>
+                      <span className="sensor-value">"Hello World" Sent</span>
                     </div>
                     <div className="sensor-item">
-                      <span className="sensor-label">Humidity</span>
-                      <span className="sensor-value">45.2%</span>
+                      <span className="sensor-label">MASTER</span>
+                      <span className="sensor-value">"Hello World" Recieved</span>
                     </div>
                     <div className="sensor-item">
-                      <span className="sensor-label">Pressure</span>
-                      <span className="sensor-value">1013.2 hPa</span>
+                      <span className="sensor-label">Connection</span>
+                      <span className="sensor-value">Stable</span>
                     </div>
                     <div className="sensor-item">
                       <span className="sensor-label">Light</span>
@@ -167,12 +168,12 @@ const ProjectSection = () => {
         
         {/* Right side - Project info */}
         <div className="project-info">
-          <h1 className="project-title">STM32 IoT</h1>
-          <h2 className="project-subtitle">Embedded System</h2>
+          <h1 className="project-title">STM32 Comms</h1>
+          <h2 className="project-subtitle">Dual Channel Communication SyS</h2>
           
           <p className="project-description">
             Advanced embedded system built with STM32F407VGT6 microcontroller, 
-            featuring real-time sensor monitoring, GPIO control, and UART communication.
+            featuring real-time Keystroke Logging, GPIO control, and UART communication.
           </p>
           
           <div className="project-buttons">
