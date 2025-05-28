@@ -89,6 +89,7 @@
   grid-area: title;
   justify-self: center;
   margin-right: 10%;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 
 .about-left {
@@ -123,20 +124,28 @@
 }
 .logo-item {
   width: 100px;
-  height: 100px;
+  min-height: 120px; /* accommodate label */
   border: 2px solid #fff;
   border-radius: 12px;
-  overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0.5rem 0;
+  overflow: hidden;
   transition: transform 0.3s ease;
 }
 .logo-item img {
   width: 100%;
-  height: 100%;
+  height: 100px;
   object-fit: contain;
-  border-radius: 0;
+  background: transparent !important;
+}
+.logo-label {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #fff;
 }
 
 /* ─── BACKGROUND & DECOR ───────────────────────────────────────────────── */

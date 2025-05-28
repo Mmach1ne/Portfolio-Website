@@ -72,7 +72,7 @@ const Portfolio = () => {
 
           <div className="about-left">
             <div className="about-icon">
-              <img src="https://placehold.co/150x150" alt="Icon Placeholder" />
+              <img src="../src/assets/Logos/PFP.jpeg" alt="Icon Placeholder" />
             </div>
             <div className="about-text-box">
               <p>
@@ -86,20 +86,48 @@ const Portfolio = () => {
 
           <div className="about-right">
             <div className="logo-grid">
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/HTML.png" alt="Logo" />
+                <span className="logo-label">HTML</span>
+              </div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/java.png" alt="Logo" />
+                <span className="logo-label">Java</span>
+              </div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/Css.png" alt="Logo" />
+                <span className="logo-label">CSS</span>
+              </div>
 
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/React.png" alt="Logo" />
+                <span className="logo-label">React</span>
+              </div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/JS.png" alt="Logo" />
+                <span className="logo-label">JS</span>
+              </div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/TS.png" alt="Logo" />
+                <span className="logo-label">TS</span>
+              </div>
 
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
-              <div className="logo-item"><img src="https://placehold.co/100x100" alt="Logo" /></div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/C++.png" alt="Logo" />
+                <span className="logo-label">C++</span>
+              </div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/C.png" alt="Logo" />
+                <span className="logo-label">C#</span>
+              </div>
+              <div className="logo-item">
+                <img src="../src/assets/Logos/Python.png" alt="Logo" />
+                <span className="logo-label">Python</span>
+              </div>
 
               <div className="logo-item" style={{ gridColumn: 2 }}>
-                <img src="https://placehold.co/100x100" alt="Logo" />
+                <img src="../src/assets/Logos/git.png" alt="Logo" />
+                <span className="logo-label">Git</span>
               </div>
             </div>
           </div>
