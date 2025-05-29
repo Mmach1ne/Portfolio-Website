@@ -1,0 +1,342 @@
+:root {
+  --jupiter-base: #d97706;
+  --jupiter-light: #f59e0b;
+  --jupiter-bands: #fbbf24;
+  --jupiter-dark: #92400e;
+  --jupiter-outline: #451a03;
+  --jupiter-aura: #dc2626;
+  --red-spot: #dc2626;
+  --red-spot-dark: #991b1b;
+  --bg: #18181b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: block;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  right: 1em;
+  padding: 1em;
+}
+
+.header h1,
+.header p {
+  font-family: Roboto, 'Helvetica', sans-serif;
+  color: white;
+  text-align: right;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+  margin: 0.25em;
+}
+
+.header h1 {
+  font-weight: 800;
+  letter-spacing: 8px;
+}
+
+.header p {
+  font-weight: 100;
+  font-size: 0.75em;
+  letter-spacing: 2px;
+}
+
+.jupiter {
+  position: relative;
+  width: max(30vw, 200px);
+  height: max(30vw, 200px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(180deg, 
+    var(--jupiter-bands) 0%, 
+    var(--jupiter-light) 15%, 
+    var(--jupiter-base) 30%, 
+    var(--jupiter-dark) 45%, 
+    var(--jupiter-base) 60%, 
+    var(--jupiter-light) 75%, 
+    var(--jupiter-bands) 90%, 
+    var(--jupiter-light) 100%);
+  border: solid 1vw var(--jupiter-outline);
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 0;
+  box-shadow: inset -20px -20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.jupiter__shadow-container {
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.jupiter__shadow {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.bands {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  animation: band-drift 60s linear infinite;
+}
+
+.bands__group-1 {
+  position: absolute;
+  top: 25%;
+  left: -10%;
+  width: 120%;
+  height: 1.5vw;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(251, 191, 36, 0.6) 20%, 
+    rgba(251, 191, 36, 0.3) 50%, 
+    rgba(251, 191, 36, 0.6) 80%, 
+    transparent 100%);
+  filter: blur(0.5px);
+}
+
+.bands__group-2 {
+  position: absolute;
+  top: 45%;
+  left: -10%;
+  width: 120%;
+  height: 2vw;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(146, 64, 14, 0.5) 30%, 
+    rgba(146, 64, 14, 0.3) 50%, 
+    rgba(146, 64, 14, 0.5) 70%, 
+    transparent 100%);
+  filter: blur(0.8px);
+}
+
+.bands__group-3 {
+  position: absolute;
+  top: 65%;
+  left: -10%;
+  width: 120%;
+  height: 1vw;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(251, 191, 36, 0.4) 25%, 
+    rgba(251, 191, 36, 0.2) 50%, 
+    rgba(251, 191, 36, 0.4) 75%, 
+    transparent 100%);
+  filter: blur(0.3px);
+}
+
+.red-spot {
+  position: absolute;
+  top: 55%;
+  left: 65%;
+  width: 8vw;
+  height: 5vw;
+  background: radial-gradient(ellipse at center, 
+    var(--red-spot-dark) 0%, 
+    var(--red-spot) 40%, 
+    rgba(220, 38, 38, 0.6) 70%, 
+    transparent 100%);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+  filter: blur(0.5px);
+  animation: spot-swirl 80s linear infinite;
+  z-index: 10;
+}
+
+.red-spot:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, 
+    var(--red-spot-dark) 0%, 
+    transparent 70%);
+  border-radius: 50%;
+}
+
+.swirls {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  animation: swirl-drift 45s linear infinite;
+}
+
+.swirls__group-1 {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  width: 6vw;
+  height: 2vw;
+  background: radial-gradient(ellipse at center, 
+    rgba(245, 158, 11, 0.4) 0%, 
+    transparent 70%);
+  border-radius: 50%;
+  transform: rotate(45deg);
+  filter: blur(1px);
+}
+
+.swirls__group-2 {
+  position: absolute;
+  top: 70%;
+  left: 40%;
+  width: 4vw;
+  height: 1.5vw;
+  background: radial-gradient(ellipse at center, 
+    rgba(217, 119, 6, 0.3) 0%, 
+    transparent 60%);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  filter: blur(0.8px);
+}
+
+.jupiter-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(36vw, 240px);
+  height: max(36vw, 240px);
+  background: radial-gradient(circle, var(--jupiter-aura), transparent);
+  opacity: 0.3;
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(25px);
+  animation: glow 5s ease-in-out infinite;
+}
+
+.jupiter-aura:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(44vw, 292px);
+  height: max(44vw, 292px);
+  background: radial-gradient(circle, var(--jupiter-light), transparent);
+  opacity: 0.2;
+  border-radius: 50%;
+  z-index: -2;
+  filter: blur(35px);
+}
+
+.jupiter-aura:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(52vw, 346px);
+  height: max(52vw, 346px);
+  background: radial-gradient(circle, var(--jupiter-base), transparent);
+  opacity: 0.15;
+  border-radius: 50%;
+  z-index: -3;
+  filter: blur(45px);
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  z-index: -10;
+}
+
+.small-star,
+.large-star {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+  transition: opacity 5s ease;
+  opacity: 0;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+.small-star {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.large-star {
+  background: rgba(251, 191, 36, 0.8);
+}
+
+@keyframes band-drift {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes swirl-drift {
+  0% {
+    transform: translateX(110%);
+  }
+  100% {
+    transform: translateX(-110%);
+  }
+}
+
+@keyframes spot-swirl {
+  0% {
+    transform: rotate(-20deg) scale(1);
+  }
+  50% {
+    transform: rotate(-20deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(-20deg) scale(1);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.03);
+    opacity: 0.35;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}

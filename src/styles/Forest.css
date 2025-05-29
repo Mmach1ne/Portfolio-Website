@@ -1,0 +1,158 @@
+.forest-container {
+  position: absolute;
+  width: 200px;
+  height: 1000px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 30px rgba(34, 197, 94, 0.3));
+}
+
+.forest-left {
+  left: 0;
+  transform: scaleX(1);
+}
+
+.forest-right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* Tree animations */
+.tree-group {
+  animation: treeSway var(--sway-duration) ease-in-out infinite;
+  transform-origin: center bottom;
+  animation-delay: var(--sway-delay);
+}
+
+@keyframes treeSway {
+  0%, 100% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(1deg) translateX(2px);
+  }
+  75% {
+    transform: rotate(-1deg) translateX(-2px);
+  }
+}
+
+/* Glow animations */
+.tree-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+  animation-delay: var(--glow-delay);
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: var(--glow-intensity);
+  }
+  50% {
+    opacity: calc(var(--glow-intensity) * 1.5);
+  }
+}
+
+/* Magical particles */
+.magic-particle {
+  animation: floatParticle var(--particle-duration) ease-in-out infinite;
+  animation-delay: var(--particle-delay);
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-30px) translateX(10px) scale(1.2);
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.8;
+  }
+}
+
+/* Fireflies */
+.firefly {
+  animation: fireflyDance var(--firefly-duration) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: var(--firefly-delay);
+}
+
+@keyframes fireflyDance {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    transform: translate(var(--firefly-x1), var(--firefly-y1));
+  }
+  60% {
+    transform: translate(var(--firefly-x2), var(--firefly-y2));
+  }
+  80% {
+    transform: translate(var(--firefly-x3), var(--firefly-y3));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--firefly-x4), var(--firefly-y4));
+    opacity: 0;
+  }
+}
+
+/* Mist effect */
+.forest-mist {
+  animation: mistDrift 20s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes mistDrift {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+/* Light rays */
+.light-ray {
+  animation: shimmer 3s ease-in-out infinite;
+  animation-delay: var(--ray-delay);
+  opacity: 0;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Tree shadow */
+.tree-shadow {
+  opacity: 0.2;
+  filter: blur(4px);
+  transform: scaleY(0.3) translateY(200px);
+}
+
+/* Hover effects (if you want to add interactivity later) */
+.forest-container:hover .magic-particle {
+  animation-duration: calc(var(--particle-duration) * 0.8);
+}
+
+.forest-container:hover .firefly {
+  animation-duration: calc(var(--firefly-duration) * 0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .forest-container {
+    transform: scale(0.8);
+  }
+}

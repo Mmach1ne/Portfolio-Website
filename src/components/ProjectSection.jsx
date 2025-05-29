@@ -154,8 +154,17 @@ const ProjectSection = () => {
             </p>
             
             <div className="project-buttons">
-              <button className="btn-primary">VIEW CODE</button>
-              <button className="btn-secondary">LEARN MORE</button>
+              <a
+                href="https://github.com/Mmach1ne/ECE-198-RJD"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="btn-primary">VIEW CODE</button>
+              </a>
+              <a href="/STM32Comms.pdf" download="STM32-Comms-Manual.pdf">
+                <button className="btn-secondary">LEARN MORE</button>
+              </a>
+
             </div>
           </div>
       </div>

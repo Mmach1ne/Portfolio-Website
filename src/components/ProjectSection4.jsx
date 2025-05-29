@@ -33,8 +33,9 @@ const ProjectSection4 = () => {
           </div>
           
           <div className="research-actions">
+            <a href="/ThermalDynamic.pdf" download="ThermalDynamicPaper.pdf">
             <button className="research-action-primary">READ PAPER</button>
-            <button className="research-action-secondary">VIEW ABSTRACT</button>
+            </a>
           </div>
         </div>
 

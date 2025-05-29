@@ -171,7 +171,7 @@ const ProjectSection3 = () => {
 
         {/* Right Panel - Project Info */}
         <div className="project-details">
-          <h1 className="project-main-title">HARMONIQ</h1>
+          <h1 className="project-main-title">HARMONI</h1>
           <h2 className="project-main-subtitle">MUSIC SOCIAL PLATFORM</h2>
           
           <p className="project-main-description">
@@ -196,8 +196,13 @@ const ProjectSection3 = () => {
           </div>
           
           <div className="project-actions">
-            <button className="action-primary">View Code</button>
-            <button className="action-secondary">Learn More</button>
+            <a
+                href="https://github.com/yanxue06/HarmoniQ"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="action-primary">View Code</button>
+            </a>
           </div>
         </div>
       </div>

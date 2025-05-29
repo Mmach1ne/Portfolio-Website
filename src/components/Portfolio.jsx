@@ -12,17 +12,34 @@ import ProjectSection2 from './ProjectSection2';
 import ProjectSection3 from './ProjectSection3';
 import ProjectSection4 from './ProjectSection4';
 import ContactSection from './ContactSection';
+import Planet2 from './Planet2';
+import Planet3 from './Planet3';
 
 const Portfolio = () => {
   const cursorReference = useRef(null);
   const { scrollY } = useScroll();
   const projectsRef = useRef(null);
-  const [showPlanet, setShowPlanet] = useState(false);
 
   // parallax effects
   const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
-  const forestLeftY = useTransform(scrollY, [0, 1000], [0, -150]);
-  const forestRightY = useTransform(scrollY, [0, 1000], [0, -150]);
+
+
+  // Planet animations based on scroll position
+  // First planet appears when scrolling past 200px
+  const planet1Opacity = useTransform(scrollY, [200, 600], [0, 1]);
+  const planet1Y = useTransform(scrollY, [200, 600], [-100, 0]);
+
+  // Second planet appears when scrolling past 800px
+  const planet2Opacity = useTransform(scrollY, [800, 1200], [0, 1]);
+  const planet2Y = useTransform(scrollY, [800, 1200], [-100, 0]);
+
+  // Third planet appears when scrolling past 1600px
+  const planet3Opacity = useTransform(scrollY, [1600, 2000], [0, 1]);
+  const planet3Y = useTransform(scrollY, [1600, 2000], [-100, 0]);
+
+  // Fourth planet appears when scrolling past 2400px
+  const planet4Opacity = useTransform(scrollY, [2400, 2800], [0, 1]);
+  const planet4Y = useTransform(scrollY, [2400, 2800], [-100, 0]);
 
   // custom cursor tracking
   useEffect(() => {
@@ -36,9 +53,8 @@ const Portfolio = () => {
     return () => window.removeEventListener('mousemove', updateCursorPosition);
   }, []);
 
-  // smooth scroll to about section AND trigger planet fade-in
+  // smooth scroll to about section
   const scrollToProjects = () => {
-    setShowPlanet(true);
     if (projectsRef.current) {
       projectsRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -50,31 +66,60 @@ const Portfolio = () => {
       <ShootingStarsSVG />
       <StaticStarsSVG />
 
-      {/* Planet fades in when "View More" is clicked */}
+
+      {/* First Planet - appears on scroll */}
       <motion.div
-        initial={{ opacity: 0, y: -100 }}
-        animate={showPlanet ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1 }}
-        style={{ position: 'absolute', top: 850,right: 600}}
+        style={{ 
+          opacity: planet1Opacity,
+          y: planet1Y,
+          position: 'absolute', 
+          top: 850, 
+          right: 600 
+        }}
       >
         <PlanetSVG />
       </motion.div>
 
+      {/* Second Planet - appears on scroll */}
       <motion.div
-        initial={{ opacity: 0, y: -100 }}
-        animate={showPlanet ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1 }}
-        style={{ position: 'absolute', top: 1700,left: 1500}}
+        style={{ 
+          opacity: planet2Opacity,
+          y: planet2Y,
+          position: 'absolute', 
+          top: 1700, 
+          left: 1500 
+        }}
       >
         <PlanetWithRing />
       </motion.div>
 
-      <motion.div style={{ y: forestLeftY }}>
-        <ForestSVG side="left" />
+      {/* Third Planet - appears on scroll */}
+      <motion.div
+        style={{ 
+          opacity: planet3Opacity,
+          y: planet3Y,
+          position: 'absolute', 
+          top: 2700, 
+          right: 500 
+        }}
+      >
+        <Planet2 />
       </motion.div>
-      <motion.div style={{ y: forestRightY }}>
-        <ForestSVG side="right" />
+
+      {/* Fourth Planet - appears on scroll */}
+      <motion.div
+        style={{ 
+          opacity: planet4Opacity,
+          y: planet4Y,
+          position: 'absolute', 
+          top: 4600, 
+          right: -600 
+        }}
+      >
+        <Planet3 />
       </motion.div>
+
+
       <motion.div className="fog-layer" style={{ opacity: fogOpacity }} />
       <div className="custom-cursor" ref={cursorReference} />
 
@@ -116,7 +161,7 @@ const Portfolio = () => {
                 Curiosity killed the cat. But as an aspiring engineer and current
                 student at the University of Waterloo, it is the trait I value most.
                 To me, being an engineer means having the drive to seek and solve
-                real-world problems—and I’m just getting started.
+                real-world problems—and I'm just getting started.
               </p>
             </div>
           </div>

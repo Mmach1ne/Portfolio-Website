@@ -1,7 +1,11 @@
 import React from 'react';
 import '../styles/ProjectSection2.css';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectSection2 = () => {
+  const navigate = useNavigate();
+
+
   return (
     <div className="clothing-ml-container">
       {/* Right side - Project Info */}
@@ -24,8 +28,14 @@ const ProjectSection2 = () => {
         </p>
 
         <div className="project-buttons">
-          <button className="btn-primary">VIEW CODE</button>
-          <button className="btn-secondary">LEARN MORE</button>
+          <button className="btn-primary"
+            type="button"
+            onClick={() => navigate('/coming-soon')}
+          >VIEW CODE</button>
+          <button className="btn-secondary"
+            type="button"
+            onClick={() => navigate('/coming-soon')}          
+          >LEARN MORE</button>
         </div>
       </div>
 
