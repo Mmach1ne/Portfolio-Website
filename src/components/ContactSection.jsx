@@ -30,7 +30,7 @@ const ContactSection = () => {
           Have a question or looking for a fullstack developer? Leave your details and I will get back to you at my earlier convenience.
         </p>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <form className="contact-form" onSubmit={handleSubmit}   data-netlify="true" netlify>
           <div className="form-group">
             <input
               type="text"
