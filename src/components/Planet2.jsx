@@ -63,10 +63,6 @@ const Planet2 = () => {
       </div>
       <div className="neptune-aura"></div>
       <div className="bg" id="bg"></div>
-      <div className="header">
-        <h1>NEPTUNE</h1>
-        <p>ICE GIANT OF THE SOLAR SYSTEM</p>
-      </div>
     </div>
   );
 };

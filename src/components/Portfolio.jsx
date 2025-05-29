@@ -181,7 +181,7 @@ const Portfolio = () => {
                 { src: 'git.png', label: 'Git', style: { gridColumn: 2 } },
               ].map(({ src, label, style }, i) => (
                 <div className="logo-item" key={i} style={style}>
-                  <img src={`../src/assets/Logos/${src}`} alt={label} />
+                  <img src={`../public/Logos/${src}`} alt={label} />
                   <span className="logo-label">{label}</span>
                 </div>
               ))}
