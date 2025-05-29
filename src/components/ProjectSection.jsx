@@ -60,7 +60,7 @@ const ProjectSection = () => {
                       </div>
                       <div className="sensor-item">
                         <span className="sensor-label">MASTER</span>
-                        <span className="sensor-value">"Hello World" Recieved</span>
+                        <span className="sensor-value">"Hello World" Received</span>
                       </div>
                       <div className="sensor-item">
                         <span className="sensor-label">Connection</span>
