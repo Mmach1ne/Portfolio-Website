@@ -2,12 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Make sure crawlers will index & follow -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Mobile & accessibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+
+    <!-- Descriptive title & summary -->
+    <title>Ray Xue – Full-Stack Developer & Waterloo Student</title>
+    <meta
+      name="description"
+      content="Portfolio of Ray Xue, showcasing React, Node.js, Python projects, and contact information."
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://rayxueportfolio.com" />
+
+    <!-- Open Graph (for social previews) -->
+    <meta property="og:title" content="Ray Xue – Full-Stack Developer" />
+    <meta property="og:description" content="Check out my projects built with React, Node.js, and Python." />
+    <meta property="og:url" content="https://rayxueportfolio.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://rayxueportfolio.com/rocket.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ray Xue – Full-Stack Developer" />
+    <meta name="twitter:description" content="Check out my projects built with React, Node.js, and Python." />
+    <meta name="twitter:image" content="https://rayxueportfolio.com/rocket.png" />
+
+    <!-- Structured data for “Person” -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ray Xue",
+      "url": "https://rayxueportfolio.com",
+      "sameAs": [
+        "https://github.com/Mmach1ne",
+        "https://www.linkedin.com/in/ray-xue-uw"
+      ]
+    }
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+
