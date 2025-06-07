@@ -5,7 +5,7 @@
 }
 
 .clothing-ml-container {
-  /* match the first file’s section sizing */
+  /* match the first file's section sizing */
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -20,7 +20,11 @@
   color:  #64ffda;
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
+  position: relative;
+
+
 }
+
 
 /* Left side – Model Status */
 .model-status {

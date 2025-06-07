@@ -1,5 +1,5 @@
 // Portfolio.jsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import CanvasBackground from './CanvasBackground';
 import StaticStarsSVG from './StaticStarsSVG';
@@ -19,6 +19,17 @@ const Portfolio = () => {
   const cursorReference = useRef(null);
   const { scrollY } = useScroll();
   const projectsRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // parallax effects
   const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
@@ -72,19 +83,58 @@ const Portfolio = () => {
       <ShootingStarsSVG />
       <StaticStarsSVG />
 
-      {/* Planets */}
-      <motion.div style={{ opacity: planet1Opacity, y: planet1Y, position: 'absolute', top: 850, right: 600 }}>
-        <PlanetSVG />
-      </motion.div>
-      <motion.div style={{ opacity: planet2Opacity, y: planet2Y, position: 'absolute', top: 1700, left: 1500 }}>
-        <PlanetWithRing />
-      </motion.div>
-      <motion.div style={{ opacity: planet3Opacity, y: planet3Y, position: 'absolute', top: 2700, right: 500 }}>
-        <Planet2 />
-      </motion.div>
-      <motion.div style={{ opacity: planet4Opacity, y: planet4Y, position: 'absolute', top: 4600, right: -600 }}>
-        <Planet3 />
-      </motion.div>
+      {/* Planets - moved to lower z-index container */}
+      {!isMobile && (
+        <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '6000px', // make it as tall as your content
+              pointerEvents: 'none',
+            }}>
+          <motion.div style={{ 
+            opacity: planet1Opacity, 
+            y: planet1Y, 
+            position: 'absolute', 
+            top: '850px', 
+            right: 'min(600px, 40vw)',
+            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
+          }}>
+            <PlanetSVG />
+          </motion.div>
+          <motion.div style={{ 
+            opacity: planet2Opacity, 
+            y: planet2Y, 
+            position: 'absolute', 
+            top: '1700px', 
+            left: 'min(1500px, 80vw)',
+            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
+          }}>
+            <PlanetWithRing />
+          </motion.div>
+          <motion.div style={{ 
+            opacity: planet3Opacity, 
+            y: planet3Y, 
+            position: 'absolute', 
+            top: '2700px', 
+            right: 'min(500px, 35vw)',
+            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
+          }}>
+            <Planet2 />
+          </motion.div>
+          <motion.div style={{ 
+            opacity: planet4Opacity, 
+            y: planet4Y, 
+            position: 'absolute', 
+            top: '4600px', 
+            right: 'max(-600px, -40vw)',
+            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
+          }}>
+            <Planet3 />
+          </motion.div>
+        </div>
+      )}
 
       <motion.div className="fog-layer" style={{ opacity: fogOpacity }} />
       <div className="custom-cursor" ref={cursorReference} />
