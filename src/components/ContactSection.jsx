@@ -6,7 +6,8 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    botField: ''
   });
 
   // URL-encode helper for Netlify form POSTs
@@ -33,7 +34,7 @@ const ContactSection = () => {
         body: encode({ 'form-name': 'contact', ...formData })
       });
       alert('Thanks! Your message has been sent.');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', botField: '' });
     } catch (error) {
       console.error(error);
       alert('Oops! There was a problem sending your message.');
@@ -53,11 +54,13 @@ const ContactSection = () => {
           name="contact"
           method="POST"
           data-netlify="true"
+          data-netlify-honeypot="botField"
           onSubmit={handleSubmit}
           className="contact-form"
         >
           {/* Required hidden input for Netlify to pick up the form */}
           <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="botField" value={formData.botField} />
 
           <div className="form-group">
             <input
