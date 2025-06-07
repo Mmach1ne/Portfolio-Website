@@ -1,4 +1,3 @@
-// src/components/ContactSection.jsx
 import React, { useState } from 'react';
 import '../styles/ContactSection.css';
 
@@ -6,9 +5,10 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
-    botField: ''
+    message: ''
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   // URL-encode helper for Netlify form POSTs
   const encode = (data) =>
@@ -27,17 +27,32 @@ const ContactSection = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+    setSubmitStatus(null);
+    
     try {
-      await fetch('/', {
+      const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'contact', ...formData })
+        body: encode({ 
+          'form-name': 'contact',
+          ...formData 
+        })
       });
-      alert('Thanks! Your message has been sent.');
-      setFormData({ name: '', email: '', message: '', botField: '' });
+      
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitStatus(null), 5000);
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
-      console.error(error);
-      alert('Oops! There was a problem sending your message.');
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -50,17 +65,20 @@ const ContactSection = () => {
           Have a question or looking for a fullstack developer? Leave your details and I will get back to you at my earliest convenience.
         </p>
 
+        {/* Hidden form for Netlify to detect */}
+        <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+          <input type="text" name="name" />
+          <input type="email" name="email" />
+          <textarea name="message"></textarea>
+        </form>
+
         <form
           name="contact"
           method="POST"
-          data-netlify="true"
-          data-netlify-honeypot="botField"
           onSubmit={handleSubmit}
           className="contact-form"
         >
-          {/* Required hidden input for Netlify to pick up the form */}
           <input type="hidden" name="form-name" value="contact" />
-          <input type="hidden" name="botField" value={formData.botField} />
 
           <div className="form-group">
             <input
@@ -71,6 +89,7 @@ const ContactSection = () => {
               onChange={handleChange}
               required
               className="form-input"
+              disabled={submitting}
             />
           </div>
 
@@ -83,6 +102,7 @@ const ContactSection = () => {
               onChange={handleChange}
               required
               className="form-input"
+              disabled={submitting}
             />
           </div>
 
@@ -95,12 +115,29 @@ const ContactSection = () => {
               required
               className="form-textarea"
               rows="6"
+              disabled={submitting}
             />
           </div>
 
-          <button type="submit" className="submit-button">
-            SUBMIT
+          <button 
+            type="submit" 
+            className="submit-button"
+            disabled={submitting}
+          >
+            {submitting ? 'SENDING...' : 'SUBMIT'}
           </button>
+
+          {submitStatus === 'success' && (
+            <p style={{ color: '#64ffda', textAlign: 'center', marginTop: '1rem' }}>
+              Thanks! Your message has been sent successfully.
+            </p>
+          )}
+          
+          {submitStatus === 'error' && (
+            <p style={{ color: '#ff6b6b', textAlign: 'center', marginTop: '1rem' }}>
+              Oops! There was a problem sending your message. Please try again.
+            </p>
+          )}
         </form>
 
         <div className="contact-footer">
