@@ -81,9 +81,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 6000px;
+  height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .planet-wrapper {
@@ -111,29 +111,114 @@
   overflow: visible !important;
 }
 
-/* Viewport-based planet positioning */
+/* Base planet positioning - Mobile First Approach */
 .planet-1 { 
-  top: 85vh; 
-  right: 40vw;
-  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+  top: 850px; 
+  right: 60vw;
+  transform: scale(0.5);
 }
 
 .planet-2 { 
-  top: 170vh; 
+  top: 1700px; 
   left: 80vw;
-  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+  transform: scale(0.5);
 }
 
 .planet-3 { 
-  top: 270vh; 
-  right: 35vw;
-  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+  top: 2700px; 
+  right: 65vw;
+  transform: scale(0.5);
 }
 
 .planet-4 { 
-  top: 460vh; 
-  right: -40vw;
-  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+  top: 3800px; 
+  right: 10vw;
+  transform: scale(0.5);
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) {
+  .planet-1 { 
+    transform: scale(0.7);
+  }
+  
+  .planet-2 { 
+    transform: scale(0.7);
+  }
+  
+  .planet-3 { 
+    transform: scale(0.7);
+  }
+  
+  .planet-4 { 
+    transform: scale(0.7);
+  }
+}
+
+/* Desktop (1024px - 1600px) */
+@media (min-width: 1024px) {
+  .planet-1 { 
+    transform: scale(0.85);
+  }
+  
+  .planet-2 { 
+    transform: scale(0.85);
+  }
+  
+  .planet-3 { 
+    transform: scale(0.85);
+  }
+  
+  .planet-4 { 
+    transform: scale(0.85);
+  }
+}
+
+/* Large screens (1600px+) */
+@media (min-width: 1600px) {
+  .planet-1 { 
+    transform: scale(1);
+    right: 60vw;
+  }
+  
+  .planet-2 { 
+    transform: scale(1);
+    left: 80vw;
+  }
+  
+  .planet-3 { 
+    transform: scale(1);
+    right: 65vw;
+  }
+  
+  .planet-4 { 
+    transform: scale(1);
+    right: 10vw;
+  }
+}
+
+/* Project Sections Order Fix */
+[data-section] {
+  position: relative;
+  z-index: 20;
+}
+
+[data-section="projects1"] { order: 1; }
+[data-section="projects2"] { order: 2; }
+[data-section="projects3"] { order: 3; }
+[data-section="projects4"] { order: 4; }
+[data-section="contact"] { order: 5; }
+
+/* Ensure proper section stacking */
+.section-loader {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-green);
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 20;
 }
 
 /* ─── TITLE SECTION ─────────────────────────────────────────────────────── */
@@ -170,7 +255,7 @@
   border-radius: 50px;
   background: transparent;
   color: var(--text-white);
-  cursor: pointer;
+  cursor: none;
   font-family: 'Intro Rust Line', sans-serif;
   transition: box-shadow var(--transition-fast) ease;
   position: relative;
@@ -510,6 +595,19 @@
   }
 }
 
+/* ─── SECTIONS CONTAINER ─────────────────────────────────────────────────── */
+.sections-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 20;
+}
+
+.section-wrapper {
+  width: 100%;
+  position: relative;
+}
+
 /* Planet isolation wrapper */
 .planet-isolate {
   position: relative;
@@ -542,6 +640,193 @@
   display: none !important;
 }
 
+/* ─── RESPONSIVE DESIGN ─────────────────────────────────────────────────── */
+/* Small devices (up to 480px) */
+@media (max-width: 480px) {
+  /* Hide planets on very small screens */
+  .planets-container {
+    display: none;
+  }
+  
+  .title-section {
+    padding-top: 15vh;
+  }
+  
+  .content-section {
+    padding: 20px 15px;
+  }
+  
+  .about-content-section {
+    gap: 1rem;
+  }
+  
+  .about-section-title {
+    margin: 0 0 2rem;
+  }
+  
+  .about-left .about-icon img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .about-left .about-text-box {
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 0;
+  }
+  
+  .about-right .logo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .logo-item {
+    width: 70px;
+    min-height: 90px;
+    padding: 0.4rem 0;
+  }
+  
+  .logo-item img {
+    height: 60px;
+  }
+  
+  .logo-label {
+    font-size: 0.65rem;
+    margin-top: 0.3rem;
+  }
+  
+  .logo-item:nth-child(10) {
+    grid-column: auto;
+  }
+  
+  .view-more-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.5rem;
+  }
+}
+
+/* Mobile Portrait (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+  
+  .planets-container {
+    display: none;
+  }
+  
+  .content-section {
+    padding: 30px 20px;
+  }
+  
+  .about-content-section {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "left"
+      "right";
+    gap: 1.5rem;
+    transform: scale(1);
+    margin-left: 0;
+  }
+  
+  .about-section-title {
+    margin: 0 0 3rem;
+    text-align: center;
+  }
+  
+  .about-left {
+    text-align: center;
+  }
+  
+  .about-left .about-icon img {
+    margin-left: 0;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .about-left .about-text-box {
+    font-size: 1.1rem;
+    max-width: 100%;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
+  }
+  
+  .about-right .logo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-items: center;
+  }
+  
+  .logo-item {
+    width: 80px;
+    min-height: 100px;
+  }
+  
+  .logo-item img {
+    height: 80px;
+  }
+  
+  .logo-label {
+    font-size: 0.7rem;
+  }
+}
+
+/* Tablet and Desktop (769px+) */
+@media (min-width: 769px) {
+  /* Planets are visible and scale properly */
+  .planet-1 { 
+    top: 850px;
+  }
+  
+  .planet-2 { 
+    top: 1700px;
+  }
+  
+  .planet-3 { 
+    top: 2700px;
+  }
+  
+  .planet-4 { 
+    top: 3800px;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+  .about-right .logo-grid {
+    gap: 0.5rem;
+  }
+  
+  .logo-item {
+    width: 60px;
+    min-height: 80px;
+  }
+  
+  .logo-item img {
+    height: 50px;
+  }
+  
+  .logo-label {
+    font-size: 0.6rem;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+  .title-section {
+    padding-top: 10vh;
+  }
+  
+  .about-content-section {
+    transform: scale(0.9);
+  }
+  
+  .planets-container {
+    display: none;
+  }
+}
+
 /* Large screens */
 @media (min-width: 1600px) {
   .about-content-section {
@@ -551,7 +836,7 @@
     transform: scale(1);
   }
   
-  /* Adjust planet positions for large screens */
+  /* Your specified planet positions for large screens */
   .planet-1 { 
     right: 60vw;
   }
@@ -566,5 +851,30 @@
   
   .planet-4 { 
     right: 10vw;
+  }
+}
+@media (min-width: 1600px) {
+  .about-content-section {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(1);
+  }
+  
+  /* Adjust planet positions for large screens */
+  .planet-1 { 
+    right: 30vw;
+  }
+  
+  .planet-2 { 
+    left: 70vw;
+  }
+  
+  .planet-3 { 
+    right: 25vw;
+  }
+  
+  .planet-4 { 
+    right: -30vw;
   }
 }
