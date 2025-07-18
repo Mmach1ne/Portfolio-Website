@@ -241,24 +241,26 @@ const Portfolio = () => {
         </div>
       </motion.div>
 
-      {/* Lazy loaded project sections */}
-      <Suspense fallback={<div className="section-loader">Loading...</div>}>
-        <div data-section="projects1">
-          {visibleSections.projects1 && <ProjectSection />}
-        </div>
-        <div data-section="projects2">
-          {visibleSections.projects2 && <ProjectSection2 />}
-        </div>
-        <div data-section="projects3">
-          {visibleSections.projects3 && <ProjectSection3 />}
-        </div>
-        <div data-section="projects4">
-          {visibleSections.projects4 && <ProjectSection4 />}
-        </div>
-        <div data-section="contact">
-          {visibleSections.contact && <ContactSection />}
-        </div>
-      </Suspense>
+      {/* Lazy loaded project sections with proper ordering */}
+      <div className="sections-container">
+        <Suspense fallback={<div className="section-loader">Loading...</div>}>
+          <div data-section="projects1" className="section-wrapper">
+            {visibleSections.projects1 && <ProjectSection />}
+          </div>
+          <div data-section="projects2" className="section-wrapper">
+            {visibleSections.projects2 && <ProjectSection2 />}
+          </div>
+          <div data-section="projects3" className="section-wrapper">
+            {visibleSections.projects3 && <ProjectSection3 />}
+          </div>
+          <div data-section="projects4" className="section-wrapper">
+            {visibleSections.projects4 && <ProjectSection4 />}
+          </div>
+          <div data-section="contact" className="section-wrapper">
+            {visibleSections.contact && <ContactSection />}
+          </div>
+        </Suspense>
+      </div>
     </div>
   );
 };
