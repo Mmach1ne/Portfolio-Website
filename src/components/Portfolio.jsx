@@ -1,40 +1,50 @@
-// Portfolio.jsx
-import React, { useEffect, useRef, useState } from 'react';
+// Portfolio.jsx - Fixed Version without Fireflies/Forest
+import React, { useEffect, useRef, useState, lazy, Suspense, useMemo, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import CanvasBackground from './CanvasBackground';
+
+// Lazy load heavy components
+const PlanetSVG = lazy(() => import('./PlanetSVG'));
+const PlanetWithRing = lazy(() => import('./Ring'));
+const Planet2 = lazy(() => import('./Planet2'));
+const Planet3 = lazy(() => import('./Planet3'));
+const ProjectSection = lazy(() => import('./ProjectSection'));
+const ProjectSection2 = lazy(() => import('./ProjectSection2'));
+const ProjectSection3 = lazy(() => import('./ProjectSection3'));
+const ProjectSection4 = lazy(() => import('./ProjectSection4'));
+const ContactSection = lazy(() => import('./ContactSection'));
+
+// Import star components
 import StaticStarsSVG from './StaticStarsSVG';
 import ShootingStarsSVG from './ShootingStarsSVG';
-import ForestSVG from './ForestSVG';
-import PlanetSVG from './PlanetSVG';
-import PlanetWithRing from './Ring';
-import ProjectSection from './ProjectSection';
-import ProjectSection2 from './ProjectSection2';
-import ProjectSection3 from './ProjectSection3';
-import ProjectSection4 from './ProjectSection4';
-import ContactSection from './ContactSection';
-import Planet2 from './Planet2';
-import Planet3 from './Planet3';
 
 const Portfolio = () => {
-  const cursorReference = useRef(null);
+  const cursorRef = useRef(null);
   const { scrollY } = useScroll();
   const projectsRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [visibleSections, setVisibleSections] = useState({
+    projects1: false,
+    projects2: false,
+    projects3: false,
+    projects4: false,
+    contact: false
+  });
 
   // Check if mobile device
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // parallax effects
+  // Parallax transforms - declared at top level
   const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
-
-  // Planet animations
+  
+  // Planet animations with viewport-based positioning
   const planet1Opacity = useTransform(scrollY, [200, 600], [0, 1]);
   const planet1Y = useTransform(scrollY, [200, 600], [-100, 0]);
   const planet2Opacity = useTransform(scrollY, [800, 1200], [0, 1]);
@@ -44,27 +54,52 @@ const Portfolio = () => {
   const planet4Opacity = useTransform(scrollY, [2400, 2800], [0, 1]);
   const planet4Y = useTransform(scrollY, [2400, 2800], [-100, 0]);
 
-  // custom cursor tracking
+  // Throttled cursor tracking
   useEffect(() => {
+    if (isMobile) return;
+
+    let ticking = false;
     const updateCursorPosition = (e) => {
-      if (cursorReference.current) {
-        cursorReference.current.style.left = `${e.clientX}px`;
-        cursorReference.current.style.top = `${e.clientY}px`;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (cursorRef.current) {
+            cursorRef.current.style.left = `${e.clientX}px`;
+            cursorRef.current.style.top = `${e.clientY}px`;
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    window.addEventListener('mousemove', updateCursorPosition);
+    
+    window.addEventListener('mousemove', updateCursorPosition, { passive: true });
     return () => window.removeEventListener('mousemove', updateCursorPosition);
+  }, [isMobile]);
+
+  // Intersection Observer for lazy loading sections
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = entry.target.getAttribute('data-section');
+            setVisibleSections(prev => ({ ...prev, [section]: true }));
+          }
+        });
+      },
+      { rootMargin: '50px' }
+    );
+
+    document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
-  // smooth scroll
-  const scrollToProjects = () => {
-    if (projectsRef.current) {
-      projectsRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const scrollToProjects = useCallback(() => {
+    projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
-  // logo data
-  const logos = [
+  // Logo data
+  const logos = useMemo(() => [
     { file: 'HTML.png', label: 'HTML' },
     { file: 'Java.png', label: 'Java' },
     { file: 'CSS.png', label: 'CSS' },
@@ -75,71 +110,70 @@ const Portfolio = () => {
     { file: 'C.png', label: 'C#' },
     { file: 'Python.png', label: 'Python' },
     { file: 'git.png', label: 'Git', style: { gridColumn: 2 } },
-  ];
+  ], []);
 
   return (
     <div className="portfolio-container">
-      <CanvasBackground />
+      {/* Star backgrounds */}
       <ShootingStarsSVG />
       <StaticStarsSVG />
 
-      {/* Planets - moved to lower z-index container */}
+      {/* Planets with viewport-based positioning */}
       {!isMobile && (
-        <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '6000px', // make it as tall as your content
-              pointerEvents: 'none',
-            }}>
-          <motion.div style={{ 
-            opacity: planet1Opacity, 
-            y: planet1Y, 
-            position: 'absolute', 
-            top: '850px', 
-            right: 'min(600px, 40vw)',
-            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
-          }}>
-            <PlanetSVG />
-          </motion.div>
-          <motion.div style={{ 
-            opacity: planet2Opacity, 
-            y: planet2Y, 
-            position: 'absolute', 
-            top: '1700px', 
-            left: 'min(1500px, 80vw)',
-            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
-          }}>
-            <PlanetWithRing />
-          </motion.div>
-          <motion.div style={{ 
-            opacity: planet3Opacity, 
-            y: planet3Y, 
-            position: 'absolute', 
-            top: '2700px', 
-            right: 'min(500px, 35vw)',
-            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
-          }}>
-            <Planet2 />
-          </motion.div>
-          <motion.div style={{ 
-            opacity: planet4Opacity, 
-            y: planet4Y, 
-            position: 'absolute', 
-            top: '4600px', 
-            right: 'max(-600px, -40vw)',
-            transform: 'scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)))'
-          }}>
-            <Planet3 />
-          </motion.div>
+        <div className="planets-container">
+          <Suspense fallback={null}>
+            <motion.div 
+              style={{ 
+                opacity: planet1Opacity, 
+                y: planet1Y
+              }}
+              className="planet-wrapper planet-1"
+            >
+              <div className="planet-isolate">
+                <PlanetSVG />
+              </div>
+            </motion.div>
+            <motion.div 
+              style={{ 
+                opacity: planet2Opacity, 
+                y: planet2Y
+              }}
+              className="planet-wrapper planet-2"
+            >
+              <div className="planet-isolate">
+                <PlanetWithRing />
+              </div>
+            </motion.div>
+            <motion.div 
+              style={{ 
+                opacity: planet3Opacity, 
+                y: planet3Y
+              }}
+              className="planet-wrapper planet-3"
+            >
+              <div className="planet-isolate">
+                <Planet2 />
+              </div>
+            </motion.div>
+            <motion.div 
+              style={{ 
+                opacity: planet4Opacity, 
+                y: planet4Y
+              }}
+              className="planet-wrapper planet-4"
+            >
+              <div className="planet-isolate">
+                <Planet3 />
+              </div>
+            </motion.div>
+          </Suspense>
         </div>
       )}
 
       <motion.div className="fog-layer" style={{ opacity: fogOpacity }} />
-      <div className="custom-cursor" ref={cursorReference} />
+      {!isMobile && <div className="custom-cursor" ref={cursorRef} />}
 
-      {/* Title */}
+      {/* Title Section */}
       <div className="title-section">
         <h1 className="title">Hi, I'm Ray</h1>
         <p className="subtitle">I'm a full stack developer.</p>
@@ -148,13 +182,13 @@ const Portfolio = () => {
         </button>
       </div>
 
-      {/* About */}
+      {/* About Section */}
       <motion.div
         className="content-section"
         ref={projectsRef}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1 }}
       >
         <div className="about-content-section">
@@ -170,8 +204,13 @@ const Portfolio = () => {
 
           <div className="about-left">
             <div className="about-icon">
-              {/* PFP.jpeg must live in public/Logos */}
-              <img src="/Logos/PFP.jpeg" alt="Icon Placeholder" />
+              <img 
+                src="/Logos/PFP.jpeg" 
+                alt="Profile" 
+                loading="lazy"
+                width="150"
+                height="150"
+              />
             </div>
             <div className="about-text-box">
               <p>
@@ -186,9 +225,14 @@ const Portfolio = () => {
           <div className="about-right">
             <div className="logo-grid">
               {logos.map(({ file, label, style }, i) => (
-                <div className="logo-item" key={i} style={style}>
-                  {/* files in public/Logos are served at /Logos/... */}
-                  <img src={`/Logos/${file}`} alt={label} />
+                <div className="logo-item" key={label} style={style}>
+                  <img 
+                    src={`/Logos/${file}`} 
+                    alt={label}
+                    loading="lazy"
+                    width="100"
+                    height="100"
+                  />
                   <span className="logo-label">{label}</span>
                 </div>
               ))}
@@ -197,12 +241,24 @@ const Portfolio = () => {
         </div>
       </motion.div>
 
-      {/* Projects & Contact */}
-      <ProjectSection />
-      <ProjectSection2 />
-      <ProjectSection3 />
-      <ProjectSection4 />
-      <ContactSection />
+      {/* Lazy loaded project sections */}
+      <Suspense fallback={<div className="section-loader">Loading...</div>}>
+        <div data-section="projects1">
+          {visibleSections.projects1 && <ProjectSection />}
+        </div>
+        <div data-section="projects2">
+          {visibleSections.projects2 && <ProjectSection2 />}
+        </div>
+        <div data-section="projects3">
+          {visibleSections.projects3 && <ProjectSection3 />}
+        </div>
+        <div data-section="projects4">
+          {visibleSections.projects4 && <ProjectSection4 />}
+        </div>
+        <div data-section="contact">
+          {visibleSections.contact && <ContactSection />}
+        </div>
+      </Suspense>
     </div>
   );
 };

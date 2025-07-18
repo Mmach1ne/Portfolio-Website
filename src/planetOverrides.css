@@ -1,0 +1,60 @@
+/* Add this to your App.css or create a new file: planetOverrides.css */
+
+/* Override Planet2.css styles */
+.planet-wrapper .wrapper {
+  display: block !important;
+  position: relative !important;
+  width: max(30vw, 200px) !important;
+  height: max(30vw, 200px) !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* Remove background from planet containers */
+.planet-wrapper .bg {
+  display: none !important;
+}
+
+/* Ensure headers don't show */
+.planet-wrapper .header {
+  display: none !important;
+}
+
+/* Fix for Planet3 (Jupiter) */
+.planet-wrapper .jupiter-aura,
+.planet-wrapper .neptune-aura,
+.planet-wrapper .earth-aura {
+  pointer-events: none;
+}
+
+/* Remove any stars from individual planets */
+.planet-wrapper .small-star,
+.planet-wrapper .large-star {
+  display: none !important;
+}
+
+/* Ensure scene containers are transparent */
+.planet-wrapper .scene {
+  background: transparent !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+/* Fix for the specific planet shown in your screenshot */
+.planet-wrapper > div {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any UI elements that might be showing */
+.planet-wrapper [class*="status"],
+.planet-wrapper [class*="metrics"],
+.planet-wrapper [class*="model"],
+.planet-wrapper [class*="panel"],
+.planet-wrapper [class*="header"] {
+  display: none !important;
+}

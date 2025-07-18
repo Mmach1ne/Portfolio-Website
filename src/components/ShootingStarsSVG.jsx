@@ -1,13 +1,14 @@
+// ShootingStarsSVG.jsx - Fixed shooting stars
 import React from 'react';
 
 const ShootingStarsSVG = () => {
   const viewWidth = 1000;
-  const viewHeight = 500; // top half of full 1000x1000
+  const viewHeight = 500;
 
   const generateShootingStars = () => {
     return Array.from({ length: 5 }).map((_, index) => {
       const startX = -50 - Math.random() * 100;
-      const startY = Math.random() * viewHeight; // only top half
+      const startY = Math.random() * viewHeight;
       const horizontalDistance = 400 + Math.random() * 600;
       const verticalDistance = 200 + Math.random() * 400;
       const endX = startX + horizontalDistance;
@@ -54,7 +55,20 @@ const ShootingStarsSVG = () => {
   };
 
   return (
-    <svg className="shooting-stars" viewBox={`0 0 ${viewWidth} ${viewHeight}`} preserveAspectRatio="none" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '50vh', zIndex: 0 }}>
+    <svg 
+      className="shooting-stars" 
+      viewBox={`0 0 ${viewWidth} ${viewHeight}`} 
+      preserveAspectRatio="none" 
+      style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        width: '100%', 
+        height: '50vh', 
+        zIndex: 0,
+        pointerEvents: 'none'
+      }}
+    >
       <defs>
         <linearGradient id="cometGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />

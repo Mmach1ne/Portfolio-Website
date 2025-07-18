@@ -1,3 +1,4 @@
+// StaticStarsSVG.jsx - Fixed circles with transparent background
 import React from 'react';
 
 const generateStarPath = (size) => {

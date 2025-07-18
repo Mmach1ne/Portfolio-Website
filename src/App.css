@@ -1,191 +1,36 @@
+/* Optimized App.css - Fixed version */
+
+/* Font Loading Optimization */
 @font-face {
   font-family: 'Intro Rust Line';
-  src: url('../public/fonts/IntroRust-Line.otf') format('woff2'),
-       url('../public/fonts/IntroRust-Line.otf') format('woff');
+  src: url('../public/fonts/IntroRust-Line.otf') format('opentype');
+  font-display: swap;
+}
+
+/* CSS Variables */
+:root {
+  --bg-dark: #0a0a0a;
+  --text-white: #fff;
+  --accent-green: #64ffda;
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
 }
 
 /* ─── GLOBAL ───────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
 .portfolio-container {
   position: relative;
   min-height: 100vh;
-  background: #0a0a0a;
-  color: #fff;
+  background: var(--bg-dark);
+  color: var(--text-white);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
-/* ─── RESPONSIVE VIEWPORT META ─────────────────────────────────────────── */
-@viewport {
-  width: device-width;
-  initial-scale: 1;
-  maximum-scale: 1;
-  user-scalable: no;
-}
-
-/* ─── TITLE SECTION ─────────────────────────────────────────────────────── */
-.title-section {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 20vh;
-  align-items: center;
-  text-align: center;
-  font-family: 'Intro Rust Line', sans-serif;
-  position: relative;
-  z-index: 10;
-}
-.title-section .title {
-  font-size: clamp(2rem, 8vw, 4rem);
-}
-.subtitle {
-  font-size: clamp(1rem, 3vw, 1.5rem);
-  margin-top: 1rem;
-  opacity: 0.7;
-  font-family: 'Intro Rust Line', sans-serif;
-}
-.view-more-btn {
-  margin-top: 1.5rem;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 50px;
-  background: transparent;
-  color: #fff;
-  cursor: none;
-  font-family: 'Intro Rust Line', sans-serif;
-  transition: box-shadow 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-.view-more-btn:hover {
-  box-shadow: 0 0 12px 4px rgba(255,255,255,0.5);
-}
-.view-more-btn:active {
-  animation: intenseGlow 0.4s ease-out forwards;
-}
-@keyframes intenseGlow {
-  0% { box-shadow: 0 0 20px 8px rgba(255,255,255,1); }
-  100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
-}
-
-/* ─── ABOUT GRID LAYOUT ─────────────────────────────────────────────────── */
-.content-section {
-  position: relative;
-  z-index: 20;
-  padding: 50px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-.about-content-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "title title"
-    "left  right";
-  gap: 2rem;
-  padding-top: 0vh;
-  transform: scale(0.8);
-  transform-origin: center;
-  margin-left: 12%;
-  font-family: 'Intro Rust Line', sans-serif;
-  
-}
-.about-section-title {
-  margin: 0 0 6rem;
-  font-size: clamp(2rem, 8vw, 4rem);
-  grid-area: title;
-  justify-self: center;
-  margin-right: 5%;
-  font-family: 'Intro Rust Line', sans-serif;
-  color: #64ffda;
-}
-
-.about-left {
-  grid-area: left;
-}
-.about-left .about-icon img {
-  width: 150px;
-  height: 150px;
-  margin-left: 15%;
-}
-.about-left .about-text-box {
-  font-size: 1.4rem;
-  line-height: 1.8;
-  max-width: 400px;
-  margin: rem 0 0;
-}
-.about-right {
-  grid-area: right;
-}
-.about-right .logo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  position: static;
-  margin: 0;
-}
-.logo-grid .logo-item:nth-child(3n+2) {
-  transform: none;
-}
-.logo-item:nth-child(10) {
-  grid-column: 2;
-}
-.logo-item {
-  width: 100px;
-  min-height: 120px; /* accommodate label */
-  border: 2px solid #fff;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 0;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-.logo-item img {
-  width: 100%;
-  height: 100px;
-  object-fit: contain;
-  background: transparent !important;
-}
-.logo-label {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-/* ─── Portfolio ───────────────────────────────────────────────── */
-
-
-/* ─── BACKGROUND & DECOR ───────────────────────────────────────────────── */
-.fog-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.4));
-  pointer-events: none;
-  z-index: 1;
-  transition: opacity 1s ease;
-}
-.forest-left, .forest-right {
-  position: fixed;
-  bottom: 0;
-  width: 200px;
-  height: 100vh;
-  will-change: transform;
-  pointer-events: none;
-  z-index: 1;
-}
-.forest-left { left: 0; }
-.forest-right { right: 0; }
-
+/* ─── STARS BACKGROUND ─────────────────────────────────────────────────── */
 .stars {
   position: fixed;
   top: 0;
@@ -195,112 +40,18 @@
   z-index: 0;
   pointer-events: none;
 }
-.stars path[stroke="url(#cometGradient)"] {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: cometTrail 5s linear infinite;
-}
-@keyframes cometTrail {
-  0%   { stroke-dashoffset: 1000; opacity: 0; }
-  20%  { opacity: 0.8; }
-  90%  { opacity: 0.6; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
-}
-.stars filter#glow feGaussianBlur {
-  stdDeviation: 2.5;
-}
 
-/* ─── CUSTOM CURSOR ─────────────────────────────────────────────────────── */
-.custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: transform 0.15s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.1s ease;
-  backdrop-filter: blur(4px) brightness(1.2);
-  opacity: 0.9;
-  transform: translate(-50%, -50%) scale(1);
-  animation: cursorPulse 1.5s infinite;
-  mix-blend-mode: screen;
-  box-shadow: 0 0 15px rgba(255,255,255,0.2);
-  z-index: 10000;
-}
-@keyframes cursorPulse {
-  0%,100% { transform: translate(-50%, -50%) scale(0.95); }
-  50%      { transform: translate(-50%, -50%) scale(1.2); }
-}
-.custom-cursor::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  animation: ripple 2s infinite;
-}
-@keyframes ripple {
-  0%   { transform: scale(1); opacity: 0.4; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-
-
-
-.forest-left, .forest-right {
-  position: fixed;
-  width: 200px;
-  height: 100vh;
-  bottom: 0;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.forest-left {
-  left: 0;
-}
-
-.forest-right {
-  right: 0;
-}
-
-
-
-.title-section {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  padding-top: 20vh;
-}
-
-.content-section {
-  position: relative;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 4rem;
-}
-
-.placeholder-card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 1rem;
-  backdrop-filter: blur(10px);
-}
-
-.fog-layer {
+.shooting-stars {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, #1a2b2a 0%, #0f1a1a 100%);
-  z-index: 5;
+  height: 50vh;
+  z-index: 0;
+  pointer-events: none;
 }
 
+/* Comet animation for shooting stars */
 .stars path[stroke="url(#cometGradient)"] {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
@@ -324,46 +75,294 @@
   }
 }
 
-.stars filter#glow feGaussianBlur {
-  stdDeviation: 2.5;
+/* ─── PLANETS CONTAINER ─────────────────────────────────────────────────── */
+.planets-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6000px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.planet-wrapper {
+  position: absolute;
+  will-change: transform, opacity;
+  /* Fix for planet containers */
+  width: fit-content;
+  height: fit-content;
+}
+
+/* Make sure planet internal containers don't interfere */
+.planet-wrapper > * {
+  pointer-events: none;
+}
+
+/* Override any internal planet styles that might cause issues */
+.planet-wrapper .wrapper,
+.planet-wrapper .scene,
+.planet-wrapper > div:first-child {
+  position: relative !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+/* Viewport-based planet positioning */
+.planet-1 { 
+  top: 85vh; 
+  right: 40vw;
+  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+}
+
+.planet-2 { 
+  top: 170vh; 
+  left: 80vw;
+  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+}
+
+.planet-3 { 
+  top: 270vh; 
+  right: 35vw;
+  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+}
+
+.planet-4 { 
+  top: 460vh; 
+  right: -40vw;
+  transform: scale(min(1, calc(0.5 + 0.5 * (100vw - 768px) / 832)));
+}
+
+/* ─── TITLE SECTION ─────────────────────────────────────────────────────── */
+.title-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 20vh;
+  align-items: center;
+  text-align: center;
+  font-family: 'Intro Rust Line', sans-serif;
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  font-size: clamp(2rem, 8vw, 4rem);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  margin-top: 1rem;
+  opacity: 0.7;
+  font-family: 'Intro Rust Line', sans-serif;
 }
 
 .view-more-btn {
   margin-top: 1.5rem;
   padding: 0.75rem 2rem;
   font-size: 1rem;
-  border: none;              /* remove always-visible outline */
+  border: none;
   border-radius: 50px;
   background: transparent;
-  color: #fff;
+  color: var(--text-white);
+  cursor: pointer;
+  font-family: 'Intro Rust Line', sans-serif;
+  transition: box-shadow var(--transition-fast) ease;
   position: relative;
   overflow: hidden;
-  cursor: none;
-  font-family: 'Intro Rust Line', sans-serif;
-  transition: box-shadow 0.2s ease;
 }
 
 .view-more-btn:hover {
-  box-shadow: 0 0 12px 4px rgba(255,255,255,0.5); /* soft glow on hover */
+  box-shadow: 0 0 12px 4px rgba(255,255,255,0.5);
 }
-
 
 .view-more-btn:active {
   animation: intenseGlow 0.4s ease-out forwards;
 }
 
 @keyframes intenseGlow {
-  0% {
-    box-shadow: 0 0 20px 8px rgba(255,255,255,1);
-  }
-  100% {
-    box-shadow: 0 0 0 rgba(255,255,255,0);
-  }
+  0% { box-shadow: 0 0 20px 8px rgba(255,255,255,1); }
+  100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+}
+
+/* ─── ABOUT SECTION ─────────────────────────────────────────────────────── */
+.content-section {
+  position: relative;
+  z-index: 20;
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.about-content-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "title title"
+    "left  right";
+  gap: 2rem;
+  padding-top: 0vh;
+  transform: scale(0.8);
+  transform-origin: center;
+  margin-left: 12%;
+  font-family: 'Intro Rust Line', sans-serif;
+}
+
+.about-section-title {
+  margin: 0 0 6rem;
+  font-size: clamp(2rem, 8vw, 4rem);
+  grid-area: title;
+  justify-self: center;
+  margin-right: 5%;
+  font-family: 'Intro Rust Line', sans-serif;
+  color: var(--accent-green);
+}
+
+.about-left {
+  grid-area: left;
+}
+
+.about-left .about-icon img {
+  width: 150px;
+  height: 150px;
+  margin-left: 15%;
+}
+
+.about-left .about-text-box {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  max-width: 400px;
+  margin: 2rem 0 0;
+}
+
+.about-right {
+  grid-area: right;
+}
+
+.about-right .logo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  position: static;
+  margin: 0;
+}
+
+.logo-grid .logo-item:nth-child(3n+2) {
+  transform: none;
+}
+
+.logo-item:nth-child(10) {
+  grid-column: 2;
+}
+
+.logo-item {
+  width: 100px;
+  min-height: 120px;
+  border: 2px solid var(--text-white);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  transition: transform var(--transition-medium) ease;
+}
+
+.logo-item:hover {
+  transform: translateY(-5px);
+}
+
+.logo-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+  background: transparent !important;
+}
+
+.logo-label {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--text-white);
+}
+
+/* ─── BACKGROUND & EFFECTS ───────────────────────────────────────────────── */
+.fog-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.4));
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 1s ease;
+}
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────────────────── */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.15s cubic-bezier(0.175,0.885,0.32,1.275), opacity 0.1s ease;
+  backdrop-filter: blur(4px) brightness(1.2);
+  opacity: 0.9;
+  transform: translate(-50%, -50%) scale(1);
+  animation: cursorPulse 1.5s infinite;
+  mix-blend-mode: screen;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+  z-index: 10000;
+}
+
+@keyframes cursorPulse {
+  0%,100% { transform: translate(-50%, -50%) scale(0.95); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  animation: ripple 2s infinite;
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ─── SECTION LOADER ─────────────────────────────────────────────────────── */
+.section-loader {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-green);
+  font-size: 1.2rem;
 }
 
 /* ─── RESPONSIVE DESIGN ─────────────────────────────────────────────────── */
 /* Tablet Portrait and below */
 @media (max-width: 768px) {
+  .custom-cursor {
+    display: none;
+  }
+  
   .content-section {
     padding: 30px 20px;
   }
@@ -418,11 +417,6 @@
   
   .logo-label {
     font-size: 0.7rem;
-  }
-  
-  /* Hide forests on mobile */
-  .forest-left, .forest-right {
-    display: none;
   }
 }
 
@@ -516,6 +510,38 @@
   }
 }
 
+/* Planet isolation wrapper */
+.planet-isolate {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  isolation: isolate;
+}
+
+/* Override any planet internal styles */
+.planet-isolate .wrapper {
+  display: block !important;
+  position: relative !important;
+  width: max(30vw, 200px) !important;
+  height: max(30vw, 200px) !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* Hide all UI elements from planets */
+.planet-isolate .bg,
+.planet-isolate .header,
+.planet-isolate .small-star,
+.planet-isolate .large-star,
+.planet-isolate [class*="status"],
+.planet-isolate [class*="metrics"],
+.planet-isolate [class*="model"],
+.planet-isolate [class*="panel"] {
+  display: none !important;
+}
+
 /* Large screens */
 @media (min-width: 1600px) {
   .about-content-section {
@@ -523,5 +549,22 @@
     margin-left: auto;
     margin-right: auto;
     transform: scale(1);
+  }
+  
+  /* Adjust planet positions for large screens */
+  .planet-1 { 
+    right: 60vw;
+  }
+  
+  .planet-2 { 
+    left: 80vw;
+  }
+  
+  .planet-3 { 
+    right: 65vw;
+  }
+  
+  .planet-4 { 
+    right: 10vw;
   }
 }
