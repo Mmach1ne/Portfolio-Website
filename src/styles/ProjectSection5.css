@@ -9,18 +9,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  color: #ffffff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  position: relative;
+  padding: 0;  /* Reduced padding */
+  width: 100%;
 }
 
 .raybot-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 2rem;
   max-width: 1400px;
   width: 100%;
-  gap: 3rem;
-  align-items: stretch;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Left Panel - Bot Architecture */
@@ -270,6 +274,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .terminal-window {
@@ -279,6 +285,8 @@
   border-radius: 12px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  transform: scale(0.9);
+  transform-origin: center;
 }
 
 .terminal-header {
@@ -528,6 +536,40 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1400px) {
+  .heatsink-container,
+  .raybot-container {
+    grid-template-columns: 250px 1fr 250px;
+    gap: 1rem;
+  }
+
+  .paper-window,
+  .terminal-window {
+    transform: scale(0.85);
+  }
+}
+
+@media (max-width: 1200px) {
+  .heatsink-container,
+  .raybot-container {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+  }
+
+  .research-details,
+  .metrics-panel,
+  .architecture-panel,
+  .raybot-info {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .paper-window,
+  .terminal-window {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 1200px) {
   .raybot-container {
     flex-direction: column;

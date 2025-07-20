@@ -9,22 +9,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 2rem;
-  color: #ffffff;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  position: relative;
-  z-index: 30;
-
-
+  padding: 0;  /* Reduced padding */
+  width: 100%;
 }
 
 .heatsink-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 2rem;
   max-width: 1400px;
   width: 100%;
-  gap: 3rem;
-  align-items: stretch;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Left Panel - Research Info (Flipped) */
@@ -147,6 +147,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .paper-window {
@@ -156,6 +158,8 @@
   border-radius: 16px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
   z-index: 5;
+  transform: scale(0.9);
+  transform-origin: center;
 }
 
 .paper-header {
@@ -556,10 +560,6 @@
   .document-preview {
     order: -1;
   }
-  
-  .paper-window {
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 768px) {
@@ -567,17 +567,22 @@
     padding: 1rem;
   }
   
-  .research-details {
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-  
+  .research-details,
   .metrics-panel {
     padding: 1.5rem 1rem;
   }
   
+  .method-stack {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .method-item {
+    padding: 0.75rem 0.25rem;
+  }
+  
   .paper-window {
-    border-radius: 12px;
+    border-radius: 8px;
   }
   
   .paper-content {
@@ -585,19 +590,7 @@
   }
   
   .paper-page {
-    padding: 1.5rem;
-  }
-  
-  .paper-heading {
-    font-size: 1.3rem;
-  }
-  
-  .graph-bars {
-    gap: 1rem;
-  }
-  
-  .bar {
-    width: 40px;
+    padding: 1rem;
   }
   
   .research-main-title {
@@ -611,9 +604,23 @@
   .research-actions {
     flex-direction: column;
   }
+}
+
+@media (max-width: 480px) {
+  .method-stack {
+    grid-template-columns: repeat(2, 1fr);
+  }
   
-  .research-action-primary,
-  .research-action-secondary {
-    width: 100%;
+  .paper-abstract p,
+  .section-item {
+    font-size: 0.8rem;
+  }
+  
+  .research-main-title {
+    font-size: 2rem;
+  }
+  
+  .research-main-subtitle {
+    font-size: 1rem;
   }
 }
