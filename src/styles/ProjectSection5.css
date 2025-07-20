@@ -1,0 +1,610 @@
+@font-face {
+  font-family: 'Intro Rust Line';
+  src: url('../../public/fonts/IntroRust-Line.otf') format('woff2'),
+       url('../../public/fonts/IntroRust-Line.otf') format('woff');
+}
+
+.raybot-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+}
+
+.raybot-container {
+  display: flex;
+  max-width: 1400px;
+  width: 100%;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+/* Left Panel - Bot Architecture */
+.architecture-panel {
+  width: 320px;
+  background: rgba(20, 25, 45, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.arch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.arch-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #64ffda;
+  margin: 0;
+}
+
+.arch-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4b5563;
+}
+
+.arch-indicator.active {
+  background: #64ffda;
+  box-shadow: 0 0 12px rgba(100, 255, 218, 0.6);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Memory Section */
+.memory-section {
+  margin-bottom: 2rem;
+}
+
+.memory-section h4,
+.skills-section h4,
+.task-manager h4 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.memory-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.memory-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.memory-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.memory-value {
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+/* Skills Grid */
+.skills-section {
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.skill-module {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.skill-module.active {
+  background: rgba(100, 255, 218, 0.05);
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+.skill-module:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.skill-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #64ffda;
+}
+
+.skill-module:not(.active) .skill-icon {
+  color: #6b7280;
+}
+
+.skill-name {
+  font-size: 0.7rem;
+  color: #d1d5db;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.skill-usage {
+  font-size: 0.6rem;
+  color: #9ca3af;
+}
+
+/* Task Manager */
+.task-manager {
+  margin-bottom: 2rem;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  border-left: 3px solid transparent;
+}
+
+.task-item.processing {
+  border-left-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.05);
+}
+
+.task-item.queued {
+  border-left-color: #60a5fa;
+  background: rgba(96, 165, 250, 0.05);
+}
+
+.task-item.completed {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.task-id {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  font-family: 'Courier New', monospace;
+}
+
+.task-type {
+  flex: 1;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+}
+
+.task-progress {
+  width: 40px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.task-item.processing .task-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: #fbbf24;
+  animation: progress 1.5s ease-in-out infinite;
+}
+
+.task-item.completed .task-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #10b981;
+}
+
+@keyframes progress {
+  0% { width: 0%; }
+  100% { width: 80%; }
+}
+
+.system-metrics {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+}
+
+.metric-value {
+  color: #64ffda;
+  font-weight: 600;
+}
+
+/* Center - Chat Interface */
+.chat-preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-window {
+  width: 100%;
+  max-width: 800px;
+  background: #0a0a0a;
+  border-radius: 12px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #666;
+}
+
+.terminal-dot.close { background: #ff5f57; }
+.terminal-dot.minimize { background: #ffbd2e; }
+.terminal-dot.maximize { background: #28ca42; }
+
+.terminal-title {
+  flex: 1;
+  text-align: center;
+}
+
+.terminal-title span {
+  color: #9ca3af;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.terminal-status {
+  color: #10b981;
+  font-size: 0.8rem;
+}
+
+.terminal-content {
+  height: 500px;
+  overflow-y: auto;
+  background: #0a0a0a;
+}
+
+.chat-history {
+  padding: 1.5rem;
+  font-family: 'Courier New', monospace;
+}
+
+.message-block {
+  margin-bottom: 1.5rem;
+}
+
+.prompt {
+  color: #64ffda;
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.user-message .prompt {
+  color: #60a5fa;
+}
+
+.message-content {
+  color: #e5e7eb;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.skill-indicator {
+  display: block;
+  color: #fbbf24;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.code-output {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  color: #64ffda;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.input-cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Right Panel - Project Info */
+.raybot-info {
+  width: 320px;
+  background: rgba(20, 25, 45, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.raybot-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(45deg, #64ffda, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Intro Rust Line', sans-serif;
+}
+
+.raybot-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  color: #e5e7eb;
+  font-family: 'Intro Rust Line', sans-serif;
+  letter-spacing: 1px;
+}
+
+.raybot-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  color: #9ca3af;
+  font-family: 'Intro Rust Line', sans-serif;
+}
+
+.tech-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.spec-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.spec-value {
+  font-size: 0.8rem;
+  color: #64ffda;
+  font-weight: 500;
+}
+
+.project-features {
+  margin-bottom: 2.5rem;
+}
+
+.project-features h4 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.feature-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-highlights li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #d1d5db;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.feature-highlights li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #64ffda;
+}
+
+.raybot-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-primary,
+.action-secondary {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.action-primary {
+  background: #64ffda;
+  color: #0a0a0a;
+}
+
+.action-primary:hover {
+  background: #4fffda;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+}
+
+.action-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.action-secondary:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .raybot-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .architecture-panel,
+  .raybot-info {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .chat-preview {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .raybot-section {
+    padding: 1rem;
+  }
+  
+  .architecture-panel,
+  .raybot-info {
+    padding: 1.5rem 1rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .skill-module {
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .terminal-window {
+    border-radius: 8px;
+  }
+  
+  .terminal-content {
+    height: 400px;
+  }
+  
+  .chat-history {
+    padding: 1rem;
+  }
+  
+  .raybot-title {
+    font-size: 2.5rem;
+  }
+  
+  .raybot-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .raybot-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .message-content,
+  .code-output {
+    font-size: 0.8rem;
+  }
+  
+  .raybot-title {
+    font-size: 2rem;
+  }
+  
+  .raybot-subtitle {
+    font-size: 1rem;
+  }
+}

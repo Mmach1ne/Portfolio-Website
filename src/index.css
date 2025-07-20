@@ -5,6 +5,14 @@ body {
   cursor: none; /* Hide default cursor */
 }
 
+button {
+  cursor: none;
+}
+
+a {
+  cursor: none;
+}
+
 .custom-cursor {
   position: fixed;
   width: 30px;
@@ -16,3 +24,4 @@ body {
   z-index: 1000;
   transform: translate(-50%, -50%);
 }
+

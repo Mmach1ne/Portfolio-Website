@@ -2,6 +2,9 @@
 import React, { useEffect, useRef, useState, lazy, Suspense, useMemo, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+// Import Navigation
+import Navigation from './navigation';
+
 // Lazy load heavy components
 const PlanetSVG = lazy(() => import('./PlanetSVG'));
 const PlanetWithRing = lazy(() => import('./Ring'));
@@ -11,6 +14,7 @@ const ProjectSection = lazy(() => import('./ProjectSection'));
 const ProjectSection2 = lazy(() => import('./ProjectSection2'));
 const ProjectSection3 = lazy(() => import('./ProjectSection3'));
 const ProjectSection4 = lazy(() => import('./ProjectSection4'));
+const ProjectSection5 = lazy(() => import('./ProjectSection5'));
 const ContactSection = lazy(() => import('./ContactSection'));
 
 // Import star components
@@ -21,25 +25,20 @@ const Portfolio = () => {
   const cursorRef = useRef(null);
   const { scrollY } = useScroll();
   const projectsRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [visibleSections, setVisibleSections] = useState({
-    projects1: false,
-    projects2: false,
-    projects3: false,
-    projects4: false,
-    contact: false
-  });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Check if mobile device
+  // Check if mobile device - optimized to prevent re-renders
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
+      if (mobile !== isMobile) {
+        setIsMobile(mobile);
+      }
     };
-    checkMobile();
+    
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [isMobile]);
 
   // Parallax transforms - declared at top level
   const fogOpacity = useTransform(scrollY, [0, 500], [0.8, 0]);
@@ -76,24 +75,6 @@ const Portfolio = () => {
     return () => window.removeEventListener('mousemove', updateCursorPosition);
   }, [isMobile]);
 
-  // Intersection Observer for lazy loading sections
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const section = entry.target.getAttribute('data-section');
-            setVisibleSections(prev => ({ ...prev, [section]: true }));
-          }
-        });
-      },
-      { rootMargin: '50px' }
-    );
-
-    document.querySelectorAll('[data-section]').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
   const scrollToProjects = useCallback(() => {
     projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
@@ -114,14 +95,17 @@ const Portfolio = () => {
 
   return (
     <div className="portfolio-container">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Star backgrounds */}
       <ShootingStarsSVG />
       <StaticStarsSVG />
 
       {/* Planets with viewport-based positioning */}
       {!isMobile && (
-        <div className="planets-container">
-          <Suspense fallback={null}>
+        <Suspense fallback={null}>
+          <div className="planets-container">
             <motion.div 
               style={{ 
                 opacity: planet1Opacity, 
@@ -166,15 +150,15 @@ const Portfolio = () => {
                 <Planet3 />
               </div>
             </motion.div>
-          </Suspense>
-        </div>
+          </div>
+        </Suspense>
       )}
 
       <motion.div className="fog-layer" style={{ opacity: fogOpacity }} />
       {!isMobile && <div className="custom-cursor" ref={cursorRef} />}
 
       {/* Title Section */}
-      <div className="title-section">
+      <div className="title-section" id="home">
         <h1 className="title">Hi, I'm Ray</h1>
         <p className="subtitle">I'm a full stack developer.</p>
         <button className="view-more-btn" onClick={scrollToProjects}>
@@ -186,6 +170,7 @@ const Portfolio = () => {
       <motion.div
         className="content-section"
         ref={projectsRef}
+        id="about"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -242,24 +227,84 @@ const Portfolio = () => {
       </motion.div>
 
       {/* Lazy loaded project sections with proper ordering */}
-      <div className="sections-container">
-        <Suspense fallback={<div className="section-loader">Loading...</div>}>
-          <div data-section="projects1" className="section-wrapper">
-            {visibleSections.projects1 && <ProjectSection />}
-          </div>
-          <div data-section="projects2" className="section-wrapper">
-            {visibleSections.projects2 && <ProjectSection2 />}
-          </div>
-          <div data-section="projects3" className="section-wrapper">
-            {visibleSections.projects3 && <ProjectSection3 />}
-          </div>
-          <div data-section="projects4" className="section-wrapper">
-            {visibleSections.projects4 && <ProjectSection4 />}
-          </div>
-          <div data-section="contact" className="section-wrapper">
-            {visibleSections.contact && <ContactSection />}
-          </div>
-        </Suspense>
+      <div className="sections-container" id="projects">
+        <motion.div 
+          data-section="projects1" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection />
+          </Suspense>
+        </motion.div>
+        
+        <motion.div 
+          data-section="projects2" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection2 />
+          </Suspense>
+        </motion.div>
+        
+        <motion.div 
+          data-section="projects3" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection3 />
+          </Suspense>
+        </motion.div>
+        
+        <motion.div 
+          data-section="projects4" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection4 />
+          </Suspense>
+        </motion.div>
+        
+        <motion.div 
+          data-section="contact" 
+          className="section-wrapper" 
+          id="contact"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ContactSection />
+          </Suspense>
+        </motion.div>
+        <motion.div 
+          data-section="projects3" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection5 />
+          </Suspense>
+        </motion.div>
       </div>
     </div>
   );
