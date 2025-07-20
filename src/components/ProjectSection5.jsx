@@ -198,8 +198,22 @@ const ProjectSection5 = () => {
           </div>
           
           <div className="raybot-actions">
-            <button className="action-primary">VIEW CODE</button>
-            <button className="action-secondary">TRY DEMO</button>
+            <a
+              href="https://github.com/Mmach1ne/LLM-Agent.git"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="action-primary">VIEW CODE</button>
+            </a>
+
+            <a
+              href="https://effervescent-haupia-013614.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="action-secondary">TRY DEMO</button>
+            </a>
+
           </div>
         </div>
       </div>

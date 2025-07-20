@@ -106,7 +106,7 @@
   font-size: 1rem;
   font-weight: 600;
   font-family: 'Intro Rust Line', sans-serif;
-  cursor: pointer;
+  cursor: none;
   text-transform: uppercase;
   letter-spacing: 2px;
   align-self: center;
