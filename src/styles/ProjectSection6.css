@@ -1,0 +1,675 @@
+@font-face {
+  font-family: 'Intro Rust Line';
+  src: url('../../public/fonts/IntroRust-Line.otf') format('woff2'),
+       url('../../public/fonts/IntroRust-Line.otf') format('woff');
+}
+
+.bus-tracking-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+}
+
+.bus-tracking-container {
+  display: flex;
+  max-width: 1400px;
+  width: 100%;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+/* Left Panel - Project Info */
+.tracking-info {
+  width: 320px;
+  background: rgba(20, 25, 45, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.tracking-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(45deg, #64ffda, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Intro Rust Line', sans-serif;
+}
+
+.tracking-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  color: #e5e7eb;
+  font-family: 'Intro Rust Line', sans-serif;
+  letter-spacing: 1px;
+}
+
+.tracking-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+  color: #9ca3af;
+  font-family: 'Intro Rust Line', sans-serif;
+}
+
+/* AWS Services Grid */
+.aws-services {
+  margin-bottom: 2rem;
+}
+
+.aws-services h4 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.service-item:hover {
+  background: rgba(100, 255, 218, 0.05);
+  border-color: rgba(100, 255, 218, 0.3);
+  transform: translateY(-2px);
+}
+
+.service-icon {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffa500;
+  margin-bottom: 0.25rem;
+}
+
+.service-name {
+  font-size: 0.65rem;
+  color: #d1d5db;
+  text-align: center;
+}
+
+/* System Features */
+.system-features {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric-label {
+  font-size: 0.65rem;
+  color: #6b7280;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  color: #64ffda;
+  font-weight: 700;
+}
+
+.tracking-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-primary,
+.action-secondary {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.action-primary {
+  background: #64ffda;
+  color: #0a0a0a;
+}
+
+.action-primary:hover {
+  background: #4fffda;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+}
+
+.action-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.action-secondary:hover {
+  background: #ffffff;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Center - Map Interface */
+.map-interface {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-window {
+  width: 100%;
+  max-width: 800px;
+  background: #0a0a0a;
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.map-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid #3a3a3a;
+  border-radius: 6px;
+  color: #9ca3af;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn.active,
+.control-btn:hover {
+  background: #2a2a2a;
+  border-color: #64ffda;
+  color: #64ffda;
+}
+
+.map-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4b5563;
+}
+
+.status-dot.active {
+  background: #10b981;
+  animation: pulse 2s infinite;
+}
+
+/* Map Container */
+.map-container {
+  position: relative;
+}
+
+.map-view {
+  position: relative;
+  height: 400px;
+  background: #111827;
+  overflow: hidden;
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grid-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.grid-line.horizontal {
+  width: 100%;
+  height: 1px;
+}
+
+.grid-line.vertical {
+  width: 1px;
+  height: 100%;
+}
+
+/* Route Overlay */
+.route-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.route-path {
+  fill: none;
+  stroke-width: 3;
+  opacity: 0.6;
+}
+
+.route-path.route-1 {
+  stroke: #64ffda;
+  stroke-dasharray: 10, 5;
+  animation: dash 20s linear infinite;
+}
+
+.route-path.route-2 {
+  stroke: #3b82f6;
+  stroke-dasharray: 15, 5;
+  animation: dash 25s linear infinite reverse;
+}
+
+.route-path.route-3 {
+  stroke: #a78bfa;
+  stroke-dasharray: 12, 8;
+  animation: dash 30s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Bus Markers */
+.bus-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: busMove 20s infinite;
+}
+
+.bus-marker:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+  z-index: 10;
+}
+
+@keyframes busMove {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+  50% { transform: translate(-50%, -50%) translateX(20px); }
+}
+
+.bus-icon {
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.bus-info {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #64ffda;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  white-space: nowrap;
+  display: none;
+}
+
+.bus-marker:hover .bus-info {
+  display: block;
+}
+
+.bus-number {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64ffda;
+  margin-right: 0.5rem;
+}
+
+.bus-speed {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+/* Bus Stops */
+.bus-stop {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.stop-marker {
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border: 2px solid #1a1a1a;
+  border-radius: 50%;
+  margin: 0 auto 0.25rem;
+}
+
+.stop-name {
+  font-size: 0.65rem;
+  color: #d1d5db;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Map Info Panel */
+.map-info-panel {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background: #1a1a1a;
+  border-top: 1px solid #2a2a2a;
+}
+
+.info-section {
+  text-align: center;
+}
+
+.info-section h5 {
+  font-size: 0.65rem;
+  color: #6b7280;
+  letter-spacing: 1px;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.info-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #64ffda;
+}
+
+/* Right Panel - System Architecture */
+.architecture-view {
+  width: 320px;
+  background: rgba(20, 25, 45, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.arch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.arch-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #64ffda;
+  margin: 0;
+}
+
+.arch-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4b5563;
+}
+
+.arch-status.active {
+  background: #64ffda;
+  box-shadow: 0 0 12px rgba(100, 255, 218, 0.6);
+}
+
+/* Data Flow */
+.data-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.flow-node {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.flow-node:hover {
+  background: rgba(100, 255, 218, 0.05);
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+.node-icon {
+  font-size: 1.25rem;
+}
+
+.node-label {
+  flex: 1;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+}
+
+.node-metric {
+  font-size: 0.65rem;
+  color: #64ffda;
+  font-weight: 500;
+}
+
+.flow-arrow {
+  text-align: center;
+  color: #64ffda;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+/* Monitoring Section */
+.monitoring-section {
+  margin-bottom: 2rem;
+}
+
+.monitoring-section h4 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.monitor-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.monitor-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.monitor-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  min-width: 50px;
+}
+
+.monitor-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.monitor-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #64ffda, #3b82f6);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Deployment Info */
+.deployment-info {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.deploy-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.deploy-label {
+  font-size: 0.7rem;
+  color: #6b7280;
+  letter-spacing: 1px;
+}
+
+.deploy-value {
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .bus-tracking-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .tracking-info,
+  .architecture-view {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .map-interface {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bus-tracking-section {
+    padding: 1rem;
+  }
+  
+  .tracking-info,
+  .architecture-view {
+    padding: 1.5rem 1rem;
+  }
+  
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .map-view {
+    height: 300px;
+  }
+  
+  .tracking-title {
+    font-size: 2.5rem;
+  }
+  
+  .tracking-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .tracking-actions {
+    flex-direction: column;
+  }
+  
+  .bus-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .map-controls {
+    justify-content: space-between;
+  }
+  
+  .control-btn {
+    flex: 1;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .tracking-title {
+    font-size: 2rem;
+  }
+  
+  .tracking-subtitle {
+    font-size: 1rem;
+  }
+  
+  .metric-value {
+    font-size: 1rem;
+  }
+}

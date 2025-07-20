@@ -15,6 +15,7 @@ const ProjectSection2 = lazy(() => import('./ProjectSection2'));
 const ProjectSection3 = lazy(() => import('./ProjectSection3'));
 const ProjectSection4 = lazy(() => import('./ProjectSection4'));
 const ProjectSection5 = lazy(() => import('./ProjectSection5'));
+const ProjectSection6 = lazy(() => import('./ProjectSection6'));
 const ContactSection = lazy(() => import('./ContactSection'));
 
 // Import star components
@@ -281,6 +282,32 @@ const Portfolio = () => {
         </motion.div>
         
         <motion.div 
+          data-section="projects5" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection5 />
+          </Suspense>
+        </motion.div>
+          
+        <motion.div 
+          data-section="projects6" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection6 />
+          </Suspense>
+        </motion.div>
+
+        <motion.div 
           data-section="contact" 
           className="section-wrapper" 
           id="contact"
@@ -293,18 +320,9 @@ const Portfolio = () => {
             <ContactSection />
           </Suspense>
         </motion.div>
-        <motion.div 
-          data-section="projects3" 
-          className="section-wrapper"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Suspense fallback={<div className="section-loader">Loading...</div>}>
-            <ProjectSection5 />
-          </Suspense>
-        </motion.div>
+        
+
+
       </div>
     </div>
   );

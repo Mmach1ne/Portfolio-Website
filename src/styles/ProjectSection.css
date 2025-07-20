@@ -566,3 +566,15 @@
     max-width: 250px;
   }
 }
+
+/* Ensure ProjectSection appears first visually */
+.sections-container {
+  display: flex;
+  flex-direction: column;
+}
+.section-wrapper {
+  order: 1;
+}
+.section-wrapper[data-section="projects1"] {
+  order: 0;
+}
