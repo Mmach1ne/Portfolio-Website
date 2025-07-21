@@ -63,8 +63,13 @@ const ProjectSection6 = () => {
           </div>
           
           <div className="tracking-actions">
-            <button className="action-primary">VIEW ARCHITECTURE</button>
-            <button className="action-secondary">LIVE DEMO</button>
+            <a
+              href="https://github.com/Mmach1ne/UWTransportGPS.git"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="action-primary">VIEW ARCHITECTURE</button>
+            </a>
           </div>
         </div>
 
