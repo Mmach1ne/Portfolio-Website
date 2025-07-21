@@ -403,3 +403,18 @@
 html {
   scroll-behavior: smooth;
 }
+
+.scroll-icon {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Ensure all sections have adequate padding bottom to avoid overlap */
+.hero-section, .about-section, .projects-section, .contact-section {
+  position: relative;
+  padding-bottom: 4rem;
+}
