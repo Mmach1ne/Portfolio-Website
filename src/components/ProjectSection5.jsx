@@ -199,7 +199,7 @@ const ProjectSection5 = () => {
           
           <div className="raybot-actions">
             <a
-              href="https://github.com/Mmach1ne/LLM-Agent.git"
+              href="https://github.com/Mmach1ne/LLM-RAG-Agent"
               target="_blank"
               rel="noopener noreferrer"
             >

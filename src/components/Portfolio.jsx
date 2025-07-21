@@ -200,9 +200,8 @@ const Portfolio = () => {
             </div>
             <div className="about-text-box">
               <p>
-                Curiosity killed the cat. But as an aspiring engineer and current
-                student at the University of Waterloo, it is the trait I value most.
-                To me, being an engineer means having the drive to seek and solve
+                Curiosity killed the cat. But as an aspiring engineer, curiosity is the trait I value most.
+                Being an engineer is being driven to seek and solve
                 real-world problems—and I'm just getting started.
               </p>
             </div>
