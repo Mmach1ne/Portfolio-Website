@@ -156,7 +156,7 @@
   border-radius: 8px;
   font-size: 0.8rem;
   font-weight: 600;
-  cursor: pointer;
+  cursor: none;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;

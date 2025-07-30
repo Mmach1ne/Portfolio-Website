@@ -16,6 +16,7 @@ const ProjectSection3 = lazy(() => import('./ProjectSection3'));
 const ProjectSection4 = lazy(() => import('./ProjectSection4'));
 const ProjectSection5 = lazy(() => import('./ProjectSection5'));
 const ProjectSection6 = lazy(() => import('./ProjectSection6'));
+const ProjectSection7 = lazy(() => import('./ProjectSection7'));
 const ContactSection = lazy(() => import('./ContactSection'));
 
 // Import star components
@@ -303,6 +304,19 @@ const Portfolio = () => {
         >
           <Suspense fallback={<div className="section-loader">Loading...</div>}>
             <ProjectSection6 />
+          </Suspense>
+        </motion.div>
+
+        <motion.div 
+          data-section="projects7" 
+          className="section-wrapper"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Suspense fallback={<div className="section-loader">Loading...</div>}>
+            <ProjectSection7 />
           </Suspense>
         </motion.div>
 

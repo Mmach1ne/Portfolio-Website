@@ -6,15 +6,7 @@ const PortfolioMobile = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [showScrollIcon, setShowScrollIcon] = useState(true);
 
-  // ──────────────────────────────────────────────────────────────────────────────
-  // Handlers
-  // ──────────────────────────────────────────────────────────────────────────────
   useEffect(() => {
-    /*
-     * Hide the scroll‑icon once the contact section has entered the viewport.
-     * We recalc on every scroll to keep behaviour snappy but tear the listener
-     * down on unmount so we don’t leak.
-     */
     const handleScroll = () => {
       const contactEl = document.getElementById('contact');
       if (!contactEl) return;
@@ -36,9 +28,6 @@ const PortfolioMobile = () => {
     }
   };
 
-  // ──────────────────────────────────────────────────────────────────────────────
-  // Data
-  // ──────────────────────────────────────────────────────────────────────────────
   const logos = [
     { file: 'HTML.png', label: 'HTML' },
     { file: 'Java.png', label: 'Java' },
@@ -106,12 +95,19 @@ const PortfolioMobile = () => {
       tech: 'AWS / IoT / Next.js',
       github: 'https://github.com/Mmach1ne/UWTransportGPS.git',
       demo: '#'
+    },
+    {
+      id: 7,
+      title: 'AUDIO LOGGER',
+      subtitle: 'Windows STT System',
+      description: 'Real-time audio capture and transcription using Google Speech-to-Text.',
+      tech: 'Python / Win32 / Google STT',
+      github: 'https://github.com/Mmach1ne/AudioLogger.git',
+      demo: '#'
     }
   ];
 
-  // ──────────────────────────────────────────────────────────────────────────────
-  // Render
-  // ──────────────────────────────────────────────────────────────────────────────
+
   return (
     <div className="mobile-portfolio">
       {/* Mobile Navigation */}
