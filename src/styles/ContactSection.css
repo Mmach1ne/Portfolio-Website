@@ -4,6 +4,7 @@
   font-display: swap;
 }
 
+/* Use CSS containment for performance */
 .contact-section {
   min-height: 100vh;
   display: flex;
@@ -13,6 +14,7 @@
   padding: 4rem 2rem;
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  contain: layout style paint;
 }
 
 .contact-container {
@@ -64,22 +66,20 @@
   width: 100%;
 }
 
+/* Use box-shadow instead of border for better performance */
 .form-input,
 .form-textarea {
   width: 100%;
   padding: 1rem 1.5rem;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   color: #ffffff;
   font-size: 1rem;
   font-family: inherit;
   outline: none;
-  /* Add smooth transitions */
-  transition: border-color 0.2s ease;
-  /* Force hardware acceleration */
-  transform: translateZ(0);
-  will-change: border-color;
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form-input::placeholder,
@@ -89,7 +89,7 @@
 
 .form-input:focus,
 .form-textarea:focus {
-  border-color: #64ffda;
+  box-shadow: inset 0 0 0 1px #64ffda;
 }
 
 .form-textarea {
@@ -97,11 +97,13 @@
   min-height: 150px;
 }
 
+/* Optimize button with transform for GPU acceleration */
 .submit-button {
   padding: 1rem 3rem;
   background: transparent;
   color: #ffffff;
-  border: 2px solid #ffffff;
+  border: none;
+  box-shadow: inset 0 0 0 2px #ffffff;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
@@ -111,16 +113,24 @@
   letter-spacing: 2px;
   align-self: center;
   min-width: 200px;
-  /* Performance optimizations */
-  transition: color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateZ(0);
-  will-change: color, border-color;
-  backface-visibility: hidden;
 }
 
-.submit-button:hover {
+.submit-button:hover:not(:disabled) {
   color: #64ffda;
-  border-color: #64ffda;
+  box-shadow: inset 0 0 0 2px #64ffda;
+  transform: translateY(-1px);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .contact-footer {
@@ -137,20 +147,23 @@
   background: #64ffda;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: none;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #0a0a0a;
-  /* Performance optimizations */
-  transition: background-color 0.2s ease;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateZ(0);
-  will-change: background-color;
-  backface-visibility: hidden;
 }
 
 .scroll-top:hover {
   background: #4fffda;
+  transform: translateY(-2px);
+}
+
+.scroll-top:active {
+  transform: translateY(0);
 }
 
 .social-links {
@@ -167,19 +180,30 @@
   justify-content: center;
   color: #ffffff;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   text-decoration: none;
-  /* Performance optimizations */
-  transition: color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateZ(0);
-  will-change: color, border-color;
-  backface-visibility: hidden;
 }
 
 .social-link:hover {
   color: #64ffda;
-  border-color: #64ffda;
+  box-shadow: inset 0 0 0 1px #64ffda;
+  transform: translateY(-2px);
+}
+
+.social-link:active {
+  transform: translateY(0);
+}
+
+/* Optimize SVG rendering */
+.social-link svg,
+.scroll-top svg {
+  pointer-events: none;
+  display: block;
 }
 
 .copyright {
