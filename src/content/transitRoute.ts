@@ -7,28 +7,30 @@ export const ROUTE_13_LABEL = 'Route 13';
 
 export const route13Stops = ['DC', 'SLC', 'EV3', 'ECH', 'DC'] as const;
 
+export type RouteCoordinate = readonly [number, number];
+
+export const route13Coordinates: [number, number][] = [
+  [-80.5425, 43.4708],
+  [-80.5408, 43.4718],
+  [-80.5392, 43.4732],
+  [-80.541, 43.4746],
+  [-80.5438, 43.475],
+  [-80.5465, 43.4738],
+  [-80.5478, 43.472],
+  [-80.5455, 43.4705],
+  [-80.5425, 43.4708],
+];
+
 export const route13GeoJson = {
-  type: 'Feature',
+  type: 'Feature' as const,
   properties: {
     name: ROUTE_13_LABEL,
   },
   geometry: {
-    type: 'LineString',
-    coordinates: [
-      [-80.5425, 43.4708],
-      [-80.5408, 43.4718],
-      [-80.5392, 43.4732],
-      [-80.541, 43.4746],
-      [-80.5438, 43.475],
-      [-80.5465, 43.4738],
-      [-80.5478, 43.472],
-      [-80.5455, 43.4705],
-      [-80.5425, 43.4708],
-    ],
+    type: 'LineString' as const,
+    coordinates: route13Coordinates,
   },
-} as const;
-
-export type RouteCoordinate = readonly [number, number];
+};
 
 export function interpolateAlongRoute(
   coordinates: readonly RouteCoordinate[],

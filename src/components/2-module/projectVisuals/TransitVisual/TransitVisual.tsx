@@ -6,7 +6,7 @@ import { MetricBar, StatusDot, WindowChrome } from '@/components/1-composition';
 import {
   interpolateAlongRoute,
   ROUTE_13_LABEL,
-  type RouteCoordinate,
+  route13Coordinates,
   route13GeoJson,
   UW_CENTER,
 } from '@/content/transitRoute';
@@ -17,7 +17,6 @@ import { Layer, Map as MapGL, Marker, Source } from '@/vendor/map';
 
 const OPEN_FREE_MAP_STYLE = 'https://tiles.openfreemap.org/styles/dark';
 const BUS_COUNT = 4;
-const ROUTE_COORDINATES = route13GeoJson.geometry.coordinates as readonly RouteCoordinate[];
 
 const RouteBadge = memo(function RouteBadge() {
   return (
@@ -60,7 +59,7 @@ function LiveFleetMap({ running, finePointer }: { running: boolean; finePointer:
     () =>
       buses.map((bus) => ({
         ...bus,
-        coordinate: interpolateAlongRoute(ROUTE_COORDINATES, bus.progress),
+        coordinate: interpolateAlongRoute(route13Coordinates, bus.progress),
       })),
     [buses],
   );
