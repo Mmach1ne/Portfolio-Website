@@ -78,7 +78,7 @@ Edit copy in `src/content/`. Blog posts in `content/blog/*.mdx`. Site metadata f
 ### Netlify
 
 - Hidden `contact` form in `src/app/layout.tsx`
-- `netlify.toml` — `pnpm build`, no SPA fallback
+- `netlify.toml` — `pnpm build`, publish `.next`, `@netlify/plugin-nextjs`, no SPA fallback
 - Contact POST via `src/lib/netlifyForm.ts` → `/api/contact`
 
 ### Mobile WebGL profile

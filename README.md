@@ -38,7 +38,7 @@ Run from the repo root with **pnpm** (Node **22+**).
 
 ## Deploy
 
-Netlify OpenNext adapter: `pnpm build`, publish `.next` (overrides a leftover Vite `dist` setting). No SPA fallback. Hidden contact form in root `layout.tsx`; POST via `/api/contact`.
+Netlify OpenNext adapter (`@netlify/plugin-nextjs`): `pnpm build`, publish `.next`. No SPA fallback — remove any dashboard rewrite of `/*` to `/index.html`. Hidden contact form in root `layout.tsx`; POST via `/api/contact`.
 
 Planet texture credit: `public/textures/ATTRIBUTION.md`.
 
