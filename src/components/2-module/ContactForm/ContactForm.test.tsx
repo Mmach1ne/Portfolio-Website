@@ -22,7 +22,8 @@ describe('ContactForm', () => {
     await user.click(screen.getByRole('button', { name: 'SUBMIT' }));
 
     expect(fetchMock).toHaveBeenCalled();
-    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe('/__forms.html');
     expect(options.body).toContain('form-name=contact');
   });
 });

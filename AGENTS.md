@@ -82,7 +82,7 @@ Portfolio-Website/
 │   │   ├── feed.xml/route.ts  # RSS
 │   │   ├── sitemap.ts
 │   │   ├── robots.ts
-│   │   ├── layout.tsx         # fonts, JSON-LD, hidden Netlify form
+│   │   ├── layout.tsx         # fonts, JSON-LD
 │   │   └── providers.tsx      # MUI App Router cache + ThemeProvider + ErrorBoundary
 │   ├── content/               # site, nav, skills, projects, social, transitRoute
 │   ├── components/
@@ -128,6 +128,6 @@ Lower atomic tiers must not import higher tiers. Tests under `**/*.test.{ts,tsx}
 
 3. **Git-based MDX blog** — Posts are `content/blog/*.mdx` with Zod frontmatter (`title`, `description`, `date`, `tags`, optional `draft` / `cover`). `draft: true` posts are parsed but omitted from `listPublished`, `getPost` (returns `null` → `notFound()`), sitemap, and RSS. Rendering uses `next-mdx-remote/rsc` plus `rehype-pretty-code` (`github-dark`) in `BlogPostPage/mdx.tsx`.
 
-4. **Netlify contact** — Root `layout.tsx` includes a hidden `name="contact"` form (`data-netlify`, honeypot `bot-field`) so Netlify registers the form at build time. Runtime POST goes `ContactForm` → `submitContact` (`src/lib/netlifyForm.ts`) → `POST /api/contact`, which forwards `application/x-www-form-urlencoded` to the site origin.
+4. **Netlify contact** — `public/__forms.html` is a static `name="contact"` form (`data-netlify`, honeypot `bot-field`) so Netlify can register the form at deploy time. Runtime POST goes `ContactForm` → `submitContact` (`src/lib/netlifyForm.ts`) → `/__forms.html`. Do not put `data-netlify` in React; `@netlify/plugin-nextjs` v5 fails the build if it finds those attributes without a public HTML form.
 
 5. **WebGL backdrop and a11y** — `PageBackdrop` mounts `SpaceCanvas` (dynamic, `ssr: false`). Reduced motion or missing WebGL uses `WebGlFallback`; planets are not hidden on mobile — quality drops instead. Custom cursor only when `useFinePointer()` (`pointer: fine`). Mobile (`useMedia('md')`, 768px): 250 twinkle points (800 desktop), 2 meteors (6), DPR `[1, 1]` (`[1, 1.5]` desktop), planet segments ~28 (~56 desktop). Planet texture credit: `public/textures/ATTRIBUTION.md`.

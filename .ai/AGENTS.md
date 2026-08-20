@@ -77,9 +77,9 @@ Edit copy in `src/content/`. Blog posts in `content/blog/*.mdx`. Site metadata f
 
 ### Netlify
 
-- Hidden `contact` form in `src/app/layout.tsx`
+- Static `contact` form in `public/__forms.html` (Next.js runtime cannot detect forms in React)
 - `netlify.toml` — `pnpm build`, publish `.next`, `@netlify/plugin-nextjs`, no SPA fallback
-- Contact POST via `src/lib/netlifyForm.ts` → `/api/contact`
+- Contact POST via `src/lib/netlifyForm.ts` → `/__forms.html`
 
 ### Mobile WebGL profile
 

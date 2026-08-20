@@ -61,11 +61,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-bg text-fg antialiased">
-        <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-          <input type="text" name="name" />
-          <input type="email" name="email" />
-          <textarea name="message" />
-        </form>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

@@ -12,7 +12,7 @@ export type ContactFields = {
 
 export async function submitContact(fields: ContactFields): Promise<'success' | 'error'> {
   try {
-    const response = await fetch('/api/contact', {
+    const response = await fetch('/__forms.html', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({

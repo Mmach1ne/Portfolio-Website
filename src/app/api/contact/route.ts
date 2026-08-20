@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   }
 
   const origin = new URL(request.url).origin;
-  const response = await fetch(`${origin}/`, {
+  const response = await fetch(`${origin}/__forms.html`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body,
