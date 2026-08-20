@@ -4,6 +4,7 @@ import { Box, Text } from '@/components/0-primitive';
 type WindowChromeProps = {
   title: string;
   children: ReactNode;
+  compact?: boolean;
 };
 
 const ChromeHeader = memo(function ChromeHeader({ title }: { title: string }) {
@@ -29,7 +30,7 @@ const ChromeHeader = memo(function ChromeHeader({ title }: { title: string }) {
   );
 });
 
-export function WindowChrome({ title, children }: WindowChromeProps) {
+export function WindowChrome({ title, children, compact = false }: WindowChromeProps) {
   return (
     <Box
       data-testid="window-chrome"
@@ -43,7 +44,7 @@ export function WindowChrome({ title, children }: WindowChromeProps) {
       }}
     >
       <ChromeHeader title={title} />
-      <Box sx={{ p: 2 }}>{children}</Box>
+      <Box sx={{ p: compact ? 1.5 : 2 }}>{children}</Box>
     </Box>
   );
 }

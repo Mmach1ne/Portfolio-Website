@@ -9,6 +9,7 @@ import {
   StatGrid,
   WindowChrome,
 } from '@/components/1-composition';
+import { useMedia } from '@/hooks/useMedia';
 import { useWidgetLoop } from '@/hooks/useWidgetLoop';
 
 const HISTORY_CAP = 60;
@@ -21,7 +22,15 @@ function lerp(min: number, max: number, t: number): number {
   return min + (max - min) * t;
 }
 
-function ThermalSim({ running, reducedMotion }: { running: boolean; reducedMotion: boolean }) {
+function ThermalSim({
+  running,
+  reducedMotion,
+  compact,
+}: {
+  running: boolean;
+  reducedMotion: boolean;
+  compact: boolean;
+}) {
   const [fanRpm, setFanRpm] = useState(reducedMotion ? 50 : 35);
   const [history, setHistory] = useState<number[]>(() => Array.from({ length: 20 }, () => 72));
 
@@ -37,13 +46,19 @@ function ThermalSim({ running, reducedMotion }: { running: boolean; reducedMotio
   }, [fanRpm]);
 
   const items = useMemo(
-    () => [
-      { label: 'T_max (°C)', value: stats.tMax },
-      { label: 'T_avg (°C)', value: stats.tAvg },
-      { label: 'CFM', value: stats.cfm },
-      { label: 'Fan RPM', value: `${fanRpm}%` },
-    ],
-    [fanRpm, stats.cfm, stats.tAvg, stats.tMax],
+    () =>
+      compact
+        ? [
+            { label: 'T_max (°C)', value: stats.tMax },
+            { label: 'Fan RPM', value: `${fanRpm}%` },
+          ]
+        : [
+            { label: 'T_max (°C)', value: stats.tMax },
+            { label: 'T_avg (°C)', value: stats.tAvg },
+            { label: 'CFM', value: stats.cfm },
+            { label: 'Fan RPM', value: `${fanRpm}%` },
+          ],
+    [compact, fanRpm, stats.cfm, stats.tAvg, stats.tMax],
   );
 
   useEffect(() => {
@@ -62,6 +77,10 @@ function ThermalSim({ running, reducedMotion }: { running: boolean; reducedMotio
         running={running}
         reducedMotion={reducedMotion}
         seed={7}
+        cols={compact ? 16 : 24}
+        rows={compact ? 10 : 16}
+        width={240}
+        height={compact ? 110 : 160}
       />
       <Slider
         label="Fan RPM"
@@ -69,22 +88,24 @@ function ThermalSim({ running, reducedMotion }: { running: boolean; reducedMotio
         min={0}
         max={100}
         valueLabel={`${fanRpm}%`}
+        touchFriendly={compact}
         onChange={(_, value) => setFanRpm(Array.isArray(value) ? (value[0] ?? 0) : value)}
       />
       <StatGrid items={items} />
-      <Sparkline values={history} height={48} />
+      {compact ? null : <Sparkline values={history} height={48} />}
     </>
   );
 }
 
 export function ThermalVisual() {
+  const isCompact = useMedia('md');
   const { ref, running, reducedMotion } = useWidgetLoop<HTMLDivElement>();
 
   return (
-    <WindowChrome title="ThermalDynamic.pdf">
+    <WindowChrome title="ThermalDynamic.pdf" compact={isCompact}>
       <Box ref={ref} sx={{ display: 'grid', gap: 1.5 }}>
         <ThermalCaption />
-        <ThermalSim running={running} reducedMotion={reducedMotion} />
+        <ThermalSim running={running} reducedMotion={reducedMotion} compact={isCompact} />
       </Box>
     </WindowChrome>
   );

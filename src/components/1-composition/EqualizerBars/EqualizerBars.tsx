@@ -9,6 +9,7 @@ type EqualizerBarsProps = {
   running?: boolean;
   reducedMotion?: boolean;
   seed?: number;
+  height?: number;
 };
 
 function seededHeights(count: number, seed: number): number[] {
@@ -24,6 +25,7 @@ export function EqualizerBars({
   running = true,
   reducedMotion = false,
   seed = 17,
+  height = 48,
 }: EqualizerBarsProps) {
   const baseHeights = useMemo(() => seededHeights(barCount, seed), [barCount, seed]);
   const [heights, setHeights] = useState(baseHeights);
@@ -47,7 +49,7 @@ export function EqualizerBars({
   }, [baseHeights, reducedMotion, running]);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 0.5, height: 48 }}>
+    <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 0.5, height }}>
       {heights.map((height, index) => (
         <Box
           // biome-ignore lint/suspicious/noArrayIndexKey: fixed bar slots

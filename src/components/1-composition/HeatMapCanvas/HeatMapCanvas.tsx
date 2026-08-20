@@ -10,6 +10,8 @@ type HeatMapCanvasProps = {
   running?: boolean;
   reducedMotion?: boolean;
   seed?: number;
+  width?: number;
+  height?: number;
 };
 
 function heatColor(value: number): string {
@@ -48,6 +50,8 @@ export function HeatMapCanvas({
   running = true,
   reducedMotion = false,
   seed = 42,
+  width = 240,
+  height = 160,
 }: HeatMapCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<number | undefined>(undefined);
@@ -59,6 +63,9 @@ export function HeatMapCanvas({
 
     const context = canvas.getContext('2d');
     if (!context) return;
+
+    canvas.width = width;
+    canvas.height = height;
 
     const cellWidth = canvas.width / cols;
     const cellHeight = canvas.height / rows;
@@ -91,7 +98,7 @@ export function HeatMapCanvas({
         window.cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [cols, rows, intensity, reducedMotion, running, seed]);
+  }, [cols, rows, intensity, reducedMotion, running, seed, width, height]);
 
   return (
     <Box
@@ -104,8 +111,8 @@ export function HeatMapCanvas({
     >
       <canvas
         ref={canvasRef}
-        width={240}
-        height={160}
+        width={width}
+        height={height}
         style={{ width: '100%', height: 'auto', display: 'block' }}
       />
     </Box>

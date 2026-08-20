@@ -9,6 +9,7 @@ type WaveformCanvasProps = {
   running?: boolean;
   reducedMotion?: boolean;
   seed?: number;
+  height?: number;
 };
 
 function seededBars(count: number, seed: number): number[] {
@@ -24,6 +25,7 @@ export function WaveformCanvas({
   running = true,
   reducedMotion = false,
   seed = 99,
+  height = 96,
 }: WaveformCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef<number | undefined>(undefined);
@@ -40,6 +42,8 @@ export function WaveformCanvas({
 
     const context = canvas.getContext('2d');
     if (!context) return;
+
+    canvas.height = height;
 
     const draw = () => {
       const { width, height } = canvas;
@@ -78,7 +82,7 @@ export function WaveformCanvas({
         window.cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [barCount, reducedMotion, running]);
+  }, [barCount, height, reducedMotion, running]);
 
   return (
     <Box
@@ -92,8 +96,8 @@ export function WaveformCanvas({
       <canvas
         ref={canvasRef}
         width={320}
-        height={96}
-        style={{ width: '100%', height: 96, display: 'block' }}
+        height={height}
+        style={{ width: '100%', height, display: 'block' }}
       />
     </Box>
   );

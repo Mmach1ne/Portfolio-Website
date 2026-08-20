@@ -3,10 +3,12 @@
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Button, Text } from '@/components/0-primitive';
 import { CodeBlock, Slider, WindowChrome } from '@/components/1-composition';
+import { useMedia } from '@/hooks/useMedia';
 import { useWidgetLoop } from '@/hooks/useWidgetLoop';
 
 const TARGET_ACCURACY = 94;
 const CLASS_LABELS = ['T-shirt', 'Trouser', 'Pullover', 'Dress', 'Coat'] as const;
+const COMPACT_CLASS_LABELS = ['T-shirt', 'Trouser', 'Dress'] as const;
 const CLOTHING_CODE_LINES = [
   'import torch',
   'class FashionCNN(torch.nn.Module):',
@@ -26,6 +28,7 @@ type TrainingLiveProps = {
   playing: boolean;
   running: boolean;
   reducedMotion: boolean;
+  compact: boolean;
   controls: ReactNode;
 };
 
@@ -61,10 +64,18 @@ function buildCurvePoints(
   return points.join(' ');
 }
 
-function TrainingLive({ config, playing, running, reducedMotion, controls }: TrainingLiveProps) {
+function TrainingLive({
+  config,
+  playing,
+  running,
+  reducedMotion,
+  compact,
+  controls,
+}: TrainingLiveProps) {
   const [tick, setTick] = useState(0);
   const [accuracy, setAccuracy] = useState(62);
   const configRef = useRef(config);
+  const labels = compact ? COMPACT_CLASS_LABELS : CLASS_LABELS;
 
   const accuracyPath = useMemo(
     () => buildCurvePoints(24, TARGET_ACCURACY, 58, config, 'accuracy'),
@@ -77,7 +88,7 @@ function TrainingLive({ config, playing, running, reducedMotion, controls }: Tra
 
   const confidences = useMemo(
     () =>
-      CLASS_LABELS.map((label, index) => ({
+      labels.map((label, index) => ({
         label,
         value: Math.max(
           8,
@@ -87,7 +98,7 @@ function TrainingLive({ config, playing, running, reducedMotion, controls }: Tra
           ),
         ),
       })),
-    [accuracy, running, tick],
+    [accuracy, labels, running, tick],
   );
 
   useEffect(() => {
@@ -100,28 +111,63 @@ function TrainingLive({ config, playing, running, reducedMotion, controls }: Tra
   useEffect(() => {
     if (!running || !playing || reducedMotion) return;
 
-    const interval = window.setInterval(() => {
-      setTick((value) => value + 1);
-      setAccuracy((value) => {
-        const delta = (TARGET_ACCURACY - value) * 0.08 + 0.35;
-        return Math.min(TARGET_ACCURACY, value + delta);
-      });
-    }, 180);
+    const interval = window.setInterval(
+      () => {
+        setTick((value) => value + 1);
+        setAccuracy((value) => {
+          const delta = (TARGET_ACCURACY - value) * 0.08 + 0.35;
+          return Math.min(TARGET_ACCURACY, value + delta);
+        });
+      },
+      compact ? 140 : 180,
+    );
 
     return () => window.clearInterval(interval);
-  }, [playing, reducedMotion, running]);
+  }, [compact, playing, reducedMotion, running]);
+
+  const restartTraining = () => {
+    setAccuracy(58);
+    setTick(0);
+  };
 
   return (
     <Box sx={{ display: 'contents' }}>
       <Box sx={{ display: 'grid', gap: 1 }}>
-        <svg
-          viewBox="0 0 100 100"
-          style={{ width: '100%', height: 88, display: 'block' }}
-          aria-hidden
+        <Box
+          role={compact ? 'button' : undefined}
+          tabIndex={compact ? 0 : undefined}
+          onClick={compact ? restartTraining : undefined}
+          onKeyDown={
+            compact
+              ? (event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    restartTraining();
+                  }
+                }
+              : undefined
+          }
+          aria-label={compact ? 'Restart training' : undefined}
+          sx={{
+            p: 0,
+            m: 0,
+            border: 0,
+            bgcolor: 'transparent',
+            color: 'inherit',
+            cursor: compact ? 'pointer' : 'default',
+            WebkitTapHighlightColor: 'transparent',
+            textAlign: 'left',
+          }}
         >
-          <path d={lossPath} fill="none" stroke="#ff6b6b" strokeWidth={1.5} />
-          <path d={accuracyPath} fill="none" stroke="#64ffda" strokeWidth={1.5} />
-        </svg>
+          <svg
+            viewBox="0 0 100 100"
+            style={{ width: '100%', height: compact ? 72 : 88, display: 'block' }}
+            aria-hidden
+          >
+            <path d={lossPath} fill="none" stroke="#ff6b6b" strokeWidth={compact ? 2 : 1.5} />
+            <path d={accuracyPath} fill="none" stroke="#64ffda" strokeWidth={compact ? 2 : 1.5} />
+          </svg>
+        </Box>
         <Text variant="caption">
           Accuracy {accuracy.toFixed(1)}% → {TARGET_ACCURACY}%
         </Text>
@@ -134,7 +180,9 @@ function TrainingLive({ config, playing, running, reducedMotion, controls }: Tra
               <Text variant="caption">{item.label}</Text>
               <Text variant="caption">{item.value.toFixed(0)}%</Text>
             </Box>
-            <Box sx={{ height: 6, bgcolor: 'rgba(255,255,255,0.1)', borderRadius: 1 }}>
+            <Box
+              sx={{ height: compact ? 8 : 6, bgcolor: 'rgba(255,255,255,0.1)', borderRadius: 1 }}
+            >
               <Box
                 sx={{
                   width: `${item.value}%`,
@@ -153,6 +201,7 @@ function TrainingLive({ config, playing, running, reducedMotion, controls }: Tra
 }
 
 export function ClothingMlVisual() {
+  const isCompact = useMedia('md');
   const { ref, running, reducedMotion } = useWidgetLoop<HTMLDivElement>();
   const [epochs, setEpochs] = useState(12);
   const [learningRate, setLearningRate] = useState(0.01);
@@ -165,21 +214,22 @@ export function ClothingMlVisual() {
   );
 
   return (
-    <WindowChrome title="model.py">
+    <WindowChrome title="model.py" compact={isCompact}>
       <Box
         ref={ref}
         sx={{
           display: 'grid',
           gap: 1.5,
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+          gridTemplateColumns: isCompact ? '1fr' : { xs: '1fr', sm: '1fr 1fr' },
         }}
       >
-        <CodeBlock lines={CLOTHING_CODE_LINES} />
+        {isCompact ? null : <CodeBlock lines={CLOTHING_CODE_LINES} />}
         <TrainingLive
           config={config}
           playing={playing}
           running={running}
           reducedMotion={reducedMotion}
+          compact={isCompact}
           controls={
             <Box sx={{ gridColumn: '1 / -1', display: 'grid', gap: 1.5 }}>
               <Slider
@@ -189,35 +239,51 @@ export function ClothingMlVisual() {
                 step={1}
                 value={epochs}
                 valueLabel={epochs}
+                touchFriendly={isCompact}
                 onChange={(_, value) => {
                   setEpochs(Array.isArray(value) ? (value[0] ?? 4) : value);
                 }}
               />
-              <Slider
-                label="Learning rate"
-                min={0.001}
-                max={0.02}
-                step={0.001}
-                value={learningRate}
-                valueLabel={learningRate.toFixed(3)}
-                onChange={(_, value) => {
-                  setLearningRate(Array.isArray(value) ? (value[0] ?? 0.001) : value);
+              {isCompact ? null : (
+                <>
+                  <Slider
+                    label="Learning rate"
+                    min={0.001}
+                    max={0.02}
+                    step={0.001}
+                    value={learningRate}
+                    valueLabel={learningRate.toFixed(3)}
+                    onChange={(_, value) => {
+                      setLearningRate(Array.isArray(value) ? (value[0] ?? 0.001) : value);
+                    }}
+                  />
+                  <Slider
+                    label="Batch size"
+                    min={8}
+                    max={64}
+                    step={8}
+                    value={batch}
+                    valueLabel={batch}
+                    onChange={(_, value) => {
+                      setBatch(Array.isArray(value) ? (value[0] ?? 8) : value);
+                    }}
+                  />
+                </>
+              )}
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  gap: 1,
                 }}
-              />
-              <Slider
-                label="Batch size"
-                min={8}
-                max={64}
-                step={8}
-                value={batch}
-                valueLabel={batch}
-                onChange={(_, value) => {
-                  setBatch(Array.isArray(value) ? (value[0] ?? 8) : value);
-                }}
-              />
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              >
                 <Text variant="caption">Fashion-MNIST confidence</Text>
-                <Button variant="secondary" onClick={() => setPlaying((value) => !value)}>
+                <Button
+                  variant="secondary"
+                  onClick={() => setPlaying((value) => !value)}
+                  sx={isCompact ? { minHeight: 40, px: 2 } : undefined}
+                >
                   {playing ? 'Pause' : 'Play'}
                 </Button>
               </Box>

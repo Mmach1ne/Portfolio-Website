@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Box, Text } from '@/components/0-primitive';
 import { PinGrid, Sparkline, Typewriter, WindowChrome } from '@/components/1-composition';
+import { useMedia } from '@/hooks/useMedia';
 import { useWidgetLoop } from '@/hooks/useWidgetLoop';
 
 const TERMINAL_LINES = [
@@ -13,6 +14,7 @@ const TERMINAL_LINES = [
 ] as const;
 
 export function RaybotVisual() {
+  const isCompact = useMedia('md');
   const { ref, running, reducedMotion } = useWidgetLoop<HTMLDivElement>();
   const [lineIndex, setLineIndex] = useState(0);
   const [tokens, setTokens] = useState<number[]>(() =>
@@ -24,54 +26,82 @@ export function RaybotVisual() {
   useEffect(() => {
     if (reducedMotion || !running) return;
 
-    const interval = window.setInterval(() => {
-      setLineIndex((index) => (index + 1) % TERMINAL_LINES.length);
-      setTokens((current) => {
-        const next = 18 + Math.round(Math.abs(Math.sin(Date.now() / 500)) * 42);
-        return [...current.slice(1), next];
-      });
-    }, 2600);
+    const interval = window.setInterval(
+      () => {
+        setLineIndex((index) => (index + 1) % TERMINAL_LINES.length);
+        setTokens((current) => {
+          const next = 18 + Math.round(Math.abs(Math.sin(Date.now() / 500)) * 42);
+          return [...current.slice(1), next];
+        });
+      },
+      isCompact ? 2000 : 2600,
+    );
 
     return () => window.clearInterval(interval);
-  }, [reducedMotion, running]);
+  }, [isCompact, reducedMotion, running]);
 
   const activeLine = TERMINAL_LINES[lineIndex] ?? TERMINAL_LINES[0];
+  const advanceLine = () => setLineIndex((index) => (index + 1) % TERMINAL_LINES.length);
 
   return (
-    <WindowChrome title="raybot terminal">
+    <WindowChrome title="raybot terminal" compact={isCompact}>
       <Box ref={ref} sx={{ display: 'grid', gap: 1.5 }}>
         <Box
+          role={isCompact ? 'button' : undefined}
+          tabIndex={isCompact ? 0 : undefined}
+          onClick={isCompact ? advanceLine : undefined}
+          onKeyDown={
+            isCompact
+              ? (event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    advanceLine();
+                  }
+                }
+              : undefined
+          }
+          aria-label={isCompact ? 'Advance terminal line' : undefined}
           sx={{
-            minHeight: 96,
+            minHeight: isCompact ? 72 : 96,
             p: 1.25,
             borderRadius: 1,
             bgcolor: 'rgba(0,0,0,0.35)',
             border: '1px solid rgba(255,255,255,0.08)',
+            appearance: 'none',
+            font: 'inherit',
+            color: 'inherit',
+            textAlign: 'left',
+            cursor: isCompact ? 'pointer' : 'default',
+            WebkitTapHighlightColor: 'transparent',
+            width: '100%',
+            ...(isCompact ? { wordBreak: 'break-word', whiteSpace: 'pre-wrap' } : {}),
           }}
         >
           <Typewriter
             text={activeLine}
             running={running}
             reducedMotion={reducedMotion}
-            speed={24}
+            speed={isCompact ? 18 : 24}
           />
         </Box>
 
-        <Box sx={{ display: 'grid', gap: 0.75 }}>
-          <Text variant="caption">Memory slots</Text>
-          <PinGrid
-            pins={memorySlots}
-            columns={4}
-            running={running}
-            reducedMotion={reducedMotion}
-            activeLabel="LOADED"
-            idleLabel="EMPTY"
-          />
-        </Box>
+        {isCompact ? null : (
+          <Box sx={{ display: 'grid', gap: 0.75 }}>
+            <Text variant="caption">Memory slots</Text>
+            <PinGrid
+              pins={memorySlots}
+              columns={4}
+              running={running}
+              reducedMotion={reducedMotion}
+              activeLabel="LOADED"
+              idleLabel="EMPTY"
+            />
+          </Box>
+        )}
 
         <Box sx={{ display: 'grid', gap: 0.5 }}>
           <Text variant="caption">Token throughput</Text>
-          <Sparkline values={tokens} height={44} />
+          <Sparkline values={tokens} height={isCompact ? 52 : 44} />
         </Box>
       </Box>
     </WindowChrome>

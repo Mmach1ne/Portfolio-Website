@@ -7,9 +7,19 @@ import { Slider as VendorSlider, type SliderProps as VendorSliderProps } from '@
 type SliderProps = VendorSliderProps & {
   label?: string;
   valueLabel?: ReactNode;
+  touchFriendly?: boolean;
 };
 
-export function Slider({ label, valueLabel, sx, ...props }: SliderProps) {
+const touchSx = {
+  height: 10,
+  py: 1.5,
+  '& .MuiSlider-thumb': {
+    width: 22,
+    height: 22,
+  },
+} as const;
+
+export function Slider({ label, valueLabel, sx, touchFriendly = false, ...props }: SliderProps) {
   return (
     <Box sx={{ display: 'grid', gap: 0.75 }}>
       {label ? (
@@ -18,7 +28,7 @@ export function Slider({ label, valueLabel, sx, ...props }: SliderProps) {
           {valueLabel ? <Text variant="caption">{valueLabel}</Text> : null}
         </Box>
       ) : null}
-      <VendorSlider sx={sx} {...props} />
+      <VendorSlider sx={touchFriendly ? touchSx : sx} {...props} />
     </Box>
   );
 }
