@@ -1,0 +1,1 @@
+export { ClothingMlVisual } from './ClothingMlVisual';

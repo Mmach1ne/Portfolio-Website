@@ -1,0 +1,1 @@
+export { ThermalVisual } from './ThermalVisual';

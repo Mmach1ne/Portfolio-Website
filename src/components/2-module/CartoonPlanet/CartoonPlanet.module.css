@@ -1,0 +1,39 @@
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: planet-spin 56s linear infinite;
+}
+
+.bob {
+  animation: planet-bob 7s ease-in-out infinite;
+}
+
+@keyframes planet-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes planet-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin,
+  .bob {
+    animation: none;
+  }
+}

@@ -1,12 +1,47 @@
-# React + Vite
+# Ray Xue Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Production site for [rayxueportfolio.com](https://rayxueportfolio.com) — Next.js App Router, Tailwind v4, MUI, Three.js space backdrop, and git-based MDX blog.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **pnpm** + **TypeScript** (strict) + **Next.js 15** App Router
+- **React 19** + **Tailwind CSS v4** + **MUI 7** (vendor-wrapped)
+- **Three.js** / React Three Fiber backdrop (stars, meteors, scroll-linked planets)
+- **MapLibre** (OpenFreeMap) for the transit project widget
+- **MDX blog** (`content/blog/*.mdx`, `next-mdx-remote/rsc`)
+- **Biome** + **ESLint** (import boundaries)
+- **Vitest** + Testing Library
 
-## Expanding the ESLint configuration
+## Commands
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Run from the repo root with **pnpm** (Node **22+**).
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Next.js dev server |
+| `pnpm build` | Production build → `.next/` |
+| `pnpm start` | Serve production build |
+| `pnpm lint` | Biome + ESLint |
+| `pnpm lint:type` | `tsc --noEmit` |
+| `pnpm test` | Vitest (single run) |
+| `pnpm format` | Biome format |
+
+## Architecture
+
+- **`src/app/`** — Next.js routes (`/`, `/blog`, `/coming-soon`, API, sitemap, RSS)
+- **`src/vendor/`** — MUI, motion, `next/link`, Three.js, MapLibre (only layer for those deps)
+- **`src/components/0-primitive` … `4-page`** — atomic UI tiers (one-way imports)
+- **`src/content/`** — typed site copy, nav, skills, projects, social links
+- **`src/lib/blog/`** — MDX frontmatter parsing and post listing
+- **`content/blog/`** — MDX posts (`draft: true` omitted from public routes)
+- **`src/theme/`** — MUI theme; design tokens in `src/app/globals.css` `@theme`
+
+## Deploy
+
+Netlify OpenNext adapter: `pnpm build`, publish `.next` (overrides a leftover Vite `dist` setting). No SPA fallback. Hidden contact form in root `layout.tsx`; POST via `/api/contact`.
+
+Planet texture credit: `public/textures/ATTRIBUTION.md`.
+
+## Agent context
+
+See [`.ai/AGENTS.md`](.ai/AGENTS.md) for structure, import rules, and content paths.

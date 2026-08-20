@@ -1,0 +1,1 @@
+export { EqualizerBars } from './EqualizerBars';

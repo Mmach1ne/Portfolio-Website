@@ -1,0 +1,1 @@
+export { HeatMapCanvas } from './HeatMapCanvas';
